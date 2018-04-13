@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shuren.mapper.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.shuren.pojo.Product" >
+    <id column="ProductId" property="productid" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Overview" property="overview" jdbcType="VARCHAR" />
+    <result column="Performer" property="performer" jdbcType="VARCHAR" />
+    <result column="SupplierId" property="supplierid" jdbcType="INTEGER" />
+    <result column="ContractCode" property="contractcode" jdbcType="INTEGER" />
+    <result column="CompleteDate" property="completedate" jdbcType="TIMESTAMP" />
+    <result column="CheckDate" property="checkdate" jdbcType="TIMESTAMP" />
+    <result column="State" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ProductId, Name, Overview, Performer, SupplierId, ContractCode, CompleteDate, CheckDate, 
+    State
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from productinfo
+    where ProductId = #{productid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from productinfo
+    where ProductId = #{productid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shuren.pojo.Product" >
+    insert into productinfo (ProductId, Name, Overview, 
+      Performer, SupplierId, ContractCode, 
+      CompleteDate, CheckDate, State
+      )
+    values (#{productid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{overview,jdbcType=VARCHAR}, 
+      #{performer,jdbcType=VARCHAR}, #{supplierid,jdbcType=INTEGER}, #{contractcode,jdbcType=INTEGER}, 
+      #{completedate,jdbcType=TIMESTAMP}, #{checkdate,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shuren.pojo.Product" >
+    insert into productinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productid != null" >
+        ProductId,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="overview != null" >
+        Overview,
+      </if>
+      <if test="performer != null" >
+        Performer,
+      </if>
+      <if test="supplierid != null" >
+        SupplierId,
+      </if>
+      <if test="contractcode != null" >
+        ContractCode,
+      </if>
+      <if test="completedate != null" >
+        CompleteDate,
+      </if>
+      <if test="checkdate != null" >
+        CheckDate,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productid != null" >
+        #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="overview != null" >
+        #{overview,jdbcType=VARCHAR},
+      </if>
+      <if test="performer != null" >
+        #{performer,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="contractcode != null" >
+        #{contractcode,jdbcType=INTEGER},
+      </if>
+      <if test="completedate != null" >
+        #{completedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkdate != null" >
+        #{checkdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shuren.pojo.Product" >
+    update productinfo
+    <set >
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="overview != null" >
+        Overview = #{overview,jdbcType=VARCHAR},
+      </if>
+      <if test="performer != null" >
+        Performer = #{performer,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        SupplierId = #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="contractcode != null" >
+        ContractCode = #{contractcode,jdbcType=INTEGER},
+      </if>
+      <if test="completedate != null" >
+        CompleteDate = #{completedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkdate != null" >
+        CheckDate = #{checkdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ProductId = #{productid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.Product" >
+    update productinfo
+    set Name = #{name,jdbcType=VARCHAR},
+      Overview = #{overview,jdbcType=VARCHAR},
+      Performer = #{performer,jdbcType=VARCHAR},
+      SupplierId = #{supplierid,jdbcType=INTEGER},
+      ContractCode = #{contractcode,jdbcType=INTEGER},
+      CompleteDate = #{completedate,jdbcType=TIMESTAMP},
+      CheckDate = #{checkdate,jdbcType=TIMESTAMP},
+      State = #{state,jdbcType=VARCHAR}
+    where ProductId = #{productid,jdbcType=INTEGER}
+  </update>
+</mapper>

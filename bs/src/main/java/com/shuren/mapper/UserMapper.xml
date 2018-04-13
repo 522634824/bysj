@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shuren.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.shuren.pojo.User" >
+    <id column="UserId" property="userid" jdbcType="INTEGER" />
+    <result column="UserName" property="username" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="INTEGER" />
+    <result column="Age" property="age" jdbcType="INTEGER" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Power" property="power" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    UserId, UserName, Password, Name, Sex, Age, Tel, Power
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from userinfo
+    where UserId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from userinfo
+    where UserId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shuren.pojo.User" >
+    insert into userinfo (UserId, UserName, Password, 
+      Name, Sex, Age, Tel, 
+      Power)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, 
+      #{power,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shuren.pojo.User" >
+    insert into userinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="username != null" >
+        UserName,
+      </if>
+      <if test="password != null" >
+        Password,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="sex != null" >
+        Sex,
+      </if>
+      <if test="age != null" >
+        Age,
+      </if>
+      <if test="tel != null" >
+        Tel,
+      </if>
+      <if test="power != null" >
+        Power,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="power != null" >
+        #{power,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shuren.pojo.User" >
+    update userinfo
+    <set >
+      <if test="username != null" >
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        Sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        Age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null" >
+        Tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="power != null" >
+        Power = #{power,jdbcType=INTEGER},
+      </if>
+    </set>
+    where UserId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.User" >
+    update userinfo
+    set UserName = #{username,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      Name = #{name,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=INTEGER},
+      Age = #{age,jdbcType=INTEGER},
+      Tel = #{tel,jdbcType=VARCHAR},
+      Power = #{power,jdbcType=INTEGER}
+    where UserId = #{userid,jdbcType=INTEGER}
+  </update>
+  
+   <select id="selectByUsername" parameterType="String" resultType="User">
+  select * from userinfo where username=#{username}
+  </select>
+  
+  <select id="selectLikeUsername" parameterType="String" resultType="User">
+  select * from userinfo where username like "%"#{username}"%"
+  </select>
+  
+  <select id="selectUserCount" resultType="Integer">
+  	select count(*) from userinfo
+  </select>
+  
+  <select id="selectAllUser" resultType="User">
+  	select * from userinfo
+  </select>
+  <update id="updatePassword" parameterType="User">
+  update userinfo set password=#{password} where userid=#{userid}
+  </update>
+</mapper>

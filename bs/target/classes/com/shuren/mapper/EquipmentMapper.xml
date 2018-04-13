@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shuren.mapper.EquipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.shuren.pojo.Equipment" >
+    <id column="equipmentid" property="equipmentid" jdbcType="INTEGER" />
+    <result column="equipmentclassid" property="equipmentclassid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="supplierid" property="supplierid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    equipmentid, equipmentclassid, name, brand, supplierid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from equipment
+    where equipmentid = #{equipmentid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from equipment
+    where equipmentid = #{equipmentid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shuren.pojo.Equipment" >
+    insert into equipment (equipmentid, equipmentclassid, name, 
+      brand, supplierid)
+    values (#{equipmentid,jdbcType=INTEGER}, #{equipmentclassid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{brand,jdbcType=VARCHAR}, #{supplierid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shuren.pojo.Equipment" >
+    insert into equipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="equipmentid != null" >
+        equipmentid,
+      </if>
+      <if test="equipmentclassid != null" >
+        equipmentclassid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="supplierid != null" >
+        supplierid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentclassid != null" >
+        #{equipmentclassid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shuren.pojo.Equipment" >
+    update equipment
+    <set >
+      <if test="equipmentclassid != null" >
+        equipmentclassid = #{equipmentclassid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        supplierid = #{supplierid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where equipmentid = #{equipmentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.Equipment" >
+    update equipment
+    set equipmentclassid = #{equipmentclassid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      supplierid = #{supplierid,jdbcType=INTEGER}
+    where equipmentid = #{equipmentid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByClassId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from equipment
+    where equipmentclassid = #{equipmentclassid}
+  </select>
+</mapper>
