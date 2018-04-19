@@ -2,17 +2,16 @@ package com.shuren.service;
 
 import java.util.List;
 
-import com.shuren.pojo.Sup;
 import com.shuren.pojo.Supplier;
+import com.shuren.pojo.SupplierStaff;
 
 public interface SupplierService {
 
-	public abstract void addSupplier(Supplier supplier);
+	public abstract int addSupplier(Supplier supplier);
 	
-	public abstract void deleteSupplier(int supplierid);
+	public abstract void deleteBySupplierid(int supplierid);
 	
-	public abstract void updateSupplier(Supplier supplier);
+	public abstract int updateSupplier(Supplier supplier);
 	
 	public abstract List<Supplier> selectAllSupplier();
-	
 }

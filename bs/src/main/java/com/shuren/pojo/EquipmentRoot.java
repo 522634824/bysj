@@ -5,7 +5,7 @@ public class EquipmentRoot {
 
     private String name;
 
-    private String explain;
+    private String remark;
 
     public Integer getEquipmentrootid() {
         return equipmentrootid;
@@ -23,11 +23,11 @@ public class EquipmentRoot {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getExplain() {
-        return explain;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setExplain(String explain) {
-        this.explain = explain == null ? null : explain.trim();
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

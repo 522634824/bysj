@@ -16,6 +16,6 @@ public interface EquipmentRootMapper {
     int updateByPrimaryKeySelective(EquipmentRoot record);
 
     int updateByPrimaryKey(EquipmentRoot record);
-    
-    List<EquipmentRoot> selectAll();
+
+	List<EquipmentRoot> selectAll();
 }

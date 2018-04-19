@@ -3,6 +3,6 @@
 
 <%
     if (session.getAttribute("currentUser") == null) {
-        out.println("<script>window.location.href='" + session.getServletContext().getContextPath() + "/jsp/login.jsp';</script>");
+        out.println("<script>window.location.href='" + session.getServletContext().getContextPath() + "/views/login.jsp';</script>");
     }
 %>

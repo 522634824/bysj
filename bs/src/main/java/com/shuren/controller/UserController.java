@@ -19,6 +19,7 @@ import com.shuren.util.ResponseUtil;
 import net.sf.json.JSONObject;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
 	@Resource
@@ -28,7 +29,7 @@ public class UserController {
 	public String Login(String username, String password, HttpServletRequest request) {
 		User user = new User();
 		user = userService.selectByUsername(username);
-		if ("".equals(user) || user == null) {
+		if (user == null) {
 			request.setAttribute("errorMsg", "’À∫≈≤ª¥Ê‘⁄£°");
 			return "login";
 		} else {
@@ -36,7 +37,12 @@ public class UserController {
 			if (password.equals(pwd)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("currentUser", user);
+				if(user.getPower()==0||user.getPower().equals(0)) {
 				return "redirect:/views/index.jsp";
+				}else if(user.getPower()==1||user.getPower().equals(1)){
+					return "redirect:/views/index_user.jsp";
+				}else if(user.getPower()==2||user.getPower().equals(2)) {}
+				return "redirect:/views/index_approve.jsp";
 			}
 			request.setAttribute("user", user);
 			request.setAttribute("errorMsg", "’À∫≈ªÚ√‹¬Î¥ÌŒÛ£°");
@@ -48,7 +54,7 @@ public class UserController {
 	public String logout(HttpSession session) throws Exception {
 		session.invalidate();
 
-		return "redirect:jsp/login.jsp";
+		return "redirect:/views/login.jsp";
 	}
 	
 	@RequestMapping("/saveUser")
@@ -101,17 +107,6 @@ public class UserController {
         return null;
     }
 
-	@RequestMapping(value = "searchUser")
-	@ResponseBody
-	public String searchUser(String username, HttpServletRequest request,HttpServletResponse response) {
-		
-		List<User> user=userService.selectLikeUsername(username);
-		JSONObject result=new JSONObject();
-		result.put("rows", user);
-		result.put("total", user.size());
-		return result.toString();
-		
-	}
 	
 	
 	@RequestMapping(value ="updateUser")

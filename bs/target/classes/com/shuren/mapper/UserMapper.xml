@@ -126,22 +126,15 @@
     where UserId = #{userid,jdbcType=INTEGER}
   </update>
   
-   <select id="selectByUsername" parameterType="String" resultType="User">
-  select * from userinfo where username=#{username}
+  <select id="selectByUsername" parameterType="String" resultType="User">
+  select * from userinfo where UserName = #{username}
   </select>
   
-  <select id="selectLikeUsername" parameterType="String" resultType="User">
-  select * from userinfo where username like "%"#{username}"%"
+    <select id="selectLikeUsername" parameterType="String" resultType="User">
+  select * from userinfo where UserName like "%"#{username}"%"
   </select>
   
-  <select id="selectUserCount" resultType="Integer">
-  	select count(*) from userinfo
+  <select id="selectAllUser" parameterType="String" resultType="User">
+  select * from userinfo
   </select>
-  
-  <select id="selectAllUser" resultType="User">
-  	select * from userinfo
-  </select>
-  <update id="updatePassword" parameterType="User">
-  update userinfo set password=#{password} where userid=#{userid}
-  </update>
 </mapper>

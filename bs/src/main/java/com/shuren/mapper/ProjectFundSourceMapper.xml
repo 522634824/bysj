@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shuren.mapper.ProjectFundSourceMapper" >
+  <resultMap id="BaseResultMap" type="com.shuren.pojo.ProjectFundSource" >
+    <id column="ProjectFundSourceId" property="projectfundsourceid" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="HowMuch" property="howmuch" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ProjectFundSourceId, Name, HowMuch, Remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from projectfundsource
+    where ProjectFundSourceId = #{projectfundsourceid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from projectfundsource
+    where ProjectFundSourceId = #{projectfundsourceid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shuren.pojo.ProjectFundSource" >
+    insert into projectfundsource (ProjectFundSourceId, Name, HowMuch, 
+      Remark)
+    values (#{projectfundsourceid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{howmuch,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shuren.pojo.ProjectFundSource" >
+    insert into projectfundsource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectfundsourceid != null" >
+        ProjectFundSourceId,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="howmuch != null" >
+        HowMuch,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectfundsourceid != null" >
+        #{projectfundsourceid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="howmuch != null" >
+        #{howmuch,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shuren.pojo.ProjectFundSource" >
+    update projectfundsource
+    <set >
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="howmuch != null" >
+        HowMuch = #{howmuch,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ProjectFundSourceId = #{projectfundsourceid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.ProjectFundSource" >
+    update projectfundsource
+    set Name = #{name,jdbcType=VARCHAR},
+      HowMuch = #{howmuch,jdbcType=VARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR}
+    where ProjectFundSourceId = #{projectfundsourceid,jdbcType=INTEGER}
+  </update>
+</mapper>

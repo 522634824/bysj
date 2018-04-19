@@ -18,4 +18,6 @@ public interface EquipmentMapper {
     int updateByPrimaryKey(Equipment record);
 
 	List<Equipment> selectByClassId(int equipmentclassid);
+
+	List<Equipment> selectAllEquipment();
 }

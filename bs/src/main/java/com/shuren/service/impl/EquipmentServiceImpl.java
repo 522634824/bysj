@@ -44,4 +44,30 @@ public class EquipmentServiceImpl implements EquipmentService{
 		return mapper.selectByClassId(equipmentclassid);
 	}
 
+	@Override
+	public int insertEquipment(Equipment equ) {
+		// TODO Auto-generated method stub
+		mapper.insertSelective(equ);
+		return 1;
+	}
+
+	@Override
+	public int updateEquipment(Equipment equ) {
+		// TODO Auto-generated method stub
+		mapper.updateByPrimaryKeySelective(equ);
+		return 1;
+	}
+
+	@Override
+	public List<Equipment> selectAllEquipment() {
+		// TODO Auto-generated method stub
+		return mapper.selectAllEquipment();
+	}
+
+	@Override
+	public void deletEequipmentById(int equipmentid) {
+		// TODO Auto-generated method stub
+		mapper.deleteByPrimaryKey(equipmentid);
+	}
+
 }

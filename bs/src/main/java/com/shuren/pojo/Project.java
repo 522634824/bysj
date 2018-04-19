@@ -2,31 +2,35 @@ package com.shuren.pojo;
 
 import java.util.Date;
 
-public class Product {
-    private Integer productid;
+public class Project {
+    private String projectinforid;
 
     private String name;
 
     private String overview;
 
+    private Integer projectyear;
+
+    private String purchasenumber;
+
+    private Integer userid;
+
     private String performer;
 
     private Integer supplierid;
 
-    private Integer contractcode;
+    private Date contractcode;
 
     private Date completedate;
 
-    private Date checkdate;
+    private Integer state;
 
-    private String state;
-
-    public Integer getProductid() {
-        return productid;
+    public String getProjectinforid() {
+        return projectinforid;
     }
 
-    public void setProductid(Integer productid) {
-        this.productid = productid;
+    public void setProjectinforid(String projectinforid) {
+        this.projectinforid = projectinforid == null ? null : projectinforid.trim();
     }
 
     public String getName() {
@@ -45,6 +49,30 @@ public class Product {
         this.overview = overview == null ? null : overview.trim();
     }
 
+    public Integer getProjectyear() {
+        return projectyear;
+    }
+
+    public void setProjectyear(Integer projectyear) {
+        this.projectyear = projectyear;
+    }
+
+    public String getPurchasenumber() {
+        return purchasenumber;
+    }
+
+    public void setPurchasenumber(String purchasenumber) {
+        this.purchasenumber = purchasenumber == null ? null : purchasenumber.trim();
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
     public String getPerformer() {
         return performer;
     }
@@ -61,11 +89,11 @@ public class Product {
         this.supplierid = supplierid;
     }
 
-    public Integer getContractcode() {
+    public Date getContractcode() {
         return contractcode;
     }
 
-    public void setContractcode(Integer contractcode) {
+    public void setContractcode(Date contractcode) {
         this.contractcode = contractcode;
     }
 
@@ -77,19 +105,11 @@ public class Product {
         this.completedate = completedate;
     }
 
-    public Date getCheckdate() {
-        return checkdate;
-    }
-
-    public void setCheckdate(Date checkdate) {
-        this.checkdate = checkdate;
-    }
-
-    public String getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(String state) {
-        this.state = state == null ? null : state.trim();
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

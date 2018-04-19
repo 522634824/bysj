@@ -1,5 +1,7 @@
 package com.shuren.mapper;
 
+import java.util.List;
+
 import com.shuren.pojo.SupplierStaff;
 
 public interface SupplierStaffMapper {
@@ -14,4 +16,8 @@ public interface SupplierStaffMapper {
     int updateByPrimaryKeySelective(SupplierStaff record);
 
     int updateByPrimaryKey(SupplierStaff record);
+
+	List<SupplierStaff> selectStaffBySupplierid(int supplierid);
+
+	List<SupplierStaff> selectAllSupplierStaff();
 }

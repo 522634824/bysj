@@ -19,9 +19,9 @@
 				pageList : [ 10, 20, 30 ],
 				rownumbers : true,
 				fit:true,
-				fitColumns:true,
+				fitColumns:false,
 				toolbar : '#tb',
-				url : '${pageContext.request.contextPath}/userlist.action'
+				url : '${pageContext.request.contextPath}/user/userlist.action'
 				 
 			});
 		});
@@ -34,25 +34,26 @@
 	        }  
 	} 
 		function formatterPower(value , row , index){  
-	        if(row.power == 1){  
+	        if(row.power == 0){  
 	            return '管理员' ;  
-	        } else if( row.power == 0){  
+	        } else if(row.power == 1){  
 	            return '用户' ;   
-	        }  
+	        } else if(row.power == 2){
+	        	return '审批组' ;  
+	        } 
 	} 
 	</script>
 	<table id="dg" >
 		<thead data-options="frozen:true">
 			<tr>
 				<th field="cb" checkbox="true" align="center"></th>
-				<th field="id" align="center" hidden="true">编号</th>
-				<th field="userid" align="center" >工号</th>
-				<th field="username"  align="center">用户名</th>
-				<th field="name" align="center">真实姓名</th>
-				<th field="sex" align="center" formatter="formatterSex">性别</th>
-				<th field="age"  align="center">年龄</th>
-				<th field="tel"  align="center">联系电话</th>
-				<th field="power" width="100" align="center"formatter="formatterPower">权限</th>
+				<th field="userid" align="center" hidden="true"></th>
+				<th field="username" width="20%" align="center">用户名</th>
+				<th field="name" width="15%" align="center">真实姓名</th>
+				<th field="sex" width="10%" align="center" formatter="formatterSex">性别</th>
+				<th field="age" width="10%" align="center">年龄</th>
+				<th field="tel" width="20%" align="center">联系电话</th>
+				<th field="power" width="15%" align="center"formatter="formatterPower">权限</th>
 				
 			</tr>
 		</thead>
@@ -62,7 +63,7 @@
 			<a href="javascript:openUserAddDialog()" class="easyui-linkbutton"
 				iconCls="icon-add" plain="true">添加</a> <a
 				href="javascript:openUserModifyDialog()" class="easyui-linkbutton"
-				iconCls="icon-edit" plain="true">修改</a> <a
+				iconCls="icon-edit" plain="true">权限控制</a> <a
 				href="javascript:deleteUser()" class="easyui-linkbutton"
 				iconCls="icon-remove" plain="true">删除</a>
 		</div>
@@ -92,14 +93,14 @@
 						color="red">*</font></td>
 				</tr>
 				<tr>
-					<td>真实姓名：：</td>
+					<td>真实姓名：</td>
 					<td><input type="text" id="name" name="name" required="true" />
 				</tr>
 				<tr>
 					<td>性别：</td>
 					<td><input type="radio" id="sex" name="sex" required="true"
-						value="1" />男 <input type="radio" id="sex" name="sex"
-						required="true" value="0" />女
+						value="1" />男<input type="radio" id="sex" name="sex"required="true" 
+						value="0"/>女</td>
 				</tr>
 				<tr>
 					<td>年龄：</td>
@@ -111,10 +112,11 @@
 				</tr>
 				<tr>
 					<td>权限：</td>
-					<td><select id="power" name="power" class="easyui-combobox" panelHeight="auto"
+					<td><select  name="power" class="easyui-combobox" panelHeight="auto" style = "width:80px;"
 						required="true" da>
-							<option value="1">管理员</option>
-							<option value="0">用户</option>
+							<option value="0">管理员</option>
+							<option value="1">用户</option>
+							<option value="2">审批组</option>
 					</select>&nbsp;<font color="red">*</font></td>
 				</tr>
 			</table>
@@ -127,17 +129,42 @@
 			class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
 	</div>
 
+<div id="dlg1" class="easyui-dialog"
+		style="width: 200px; height: 200px; padding: 10px 20px; position: relative; z-index: 1000;"
+		closed="true" buttons="#dlg-buttons">
+		<form id="fm1" method="post">
+			<table cellspacing="8px" align="center">
+			<tr>
+					<td>权限：</td>
+					<td><select name="power" class="easyui-combobox" panelHeight="auto" style = "width:80px;"
+						required="true">
+							<option value="0">管理员</option>
+							<option value="1">用户</option>
+							<option value="2">审批组</option>
+					</select>&nbsp;<font color="red">*</font></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+	<div id="dlg-buttons">
+		<a href="javascript:saveUser1()" class="easyui-linkbutton"
+			iconCls="icon-ok">保存</a> <a href="javascript:closeUserAddDialog()"
+			class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+	</div>
+
 	<script type="text/javascript">
 		var url;
 
 		function openUserAddDialog() {
 			$("#dlg").dialog("open").dialog("setTitle", "添加用户信息");
-			url = "${pageContext.request.contextPath}/saveUser.action";
+			url = "${pageContext.request.contextPath}/user/saveUser.action";
 
 		}
 
 		function closeUserAddDialog() {
 			$("#dlg").dialog("close");
+			$("#dlg1").dialog("close");
 			resetValue();
 		}
 
@@ -177,7 +204,7 @@
 								if (r) {
 									$
 											.post(
-													"${pageContext.request.contextPath}/deleteUser.action",
+													"${pageContext.request.contextPath}/user/deleteUser.action",
 													{
 														ids : ids
 													},
@@ -206,10 +233,9 @@
 				return;
 			}
 			var row = selectedRows[0];
-			$("#dlg").dialog("open").dialog("setTitle", "编辑用户信息");
-			$('#fm').form('load', row);
-			$("#password").val("******");
-			url = "${pageContext.request.contextPath}/saveUser.action?userid=" + row.userid;
+			$("#dlg1").dialog("open").dialog("setTitle", "权限控制");
+			$('#fm1').form('load', row);
+			url = "${pageContext.request.contextPath}/user/saveUser.action?userid=" + row.userid;
 		}
 		
 		
@@ -222,6 +248,28 @@
 		function resetValue() {
 			$("#username").val("");
 			$("#password").val("");
+			$("#name").val("");
+			$("#sex").val("");
+			$("#age").val("");
+			$("#tel").val("");
+			$("#power").val("");
+		}
+		
+		
+		function saveUser1() {
+			$("#fm1").form("submit", {
+				url : url,
+				onSubmit : function() {
+					return $(this).form("validate");
+				},
+				success : function(result) {
+					$.messager.alert("系统提示", "保存成功");
+					resetValue();
+					$("#dlg1").dialog("close");
+					$("#dg").datagrid("reload");
+
+				}
+			});
 		}
 	</script>
 </body>

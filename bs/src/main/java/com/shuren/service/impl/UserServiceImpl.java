@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int updateUserById(User user) {
 		// TODO Auto-generated method stub
-		usermapper.updateByPrimaryKey(user);
+		usermapper.updateByPrimaryKeySelective(user);
 		return 1;
 	}
 

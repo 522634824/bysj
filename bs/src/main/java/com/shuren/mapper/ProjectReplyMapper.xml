@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shuren.mapper.ProjectReplyMapper" >
+  <resultMap id="BaseResultMap" type="com.shuren.pojo.ProjectReply" >
+    <id column="ProjectReplyId" property="projectreplyid" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Overview" property="overview" jdbcType="VARCHAR" />
+    <result column="UserId" property="userid" jdbcType="INTEGER" />
+    <result column="Performer" property="performer" jdbcType="VARCHAR" />
+    <result column="HowMuch" property="howmuch" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="Approver" property="approver" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ProjectReplyId, Name, Overview, UserId, Performer, HowMuch, Remark, State, Approver
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from projectreply
+    where ProjectReplyId = #{projectreplyid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from projectreply
+    where ProjectReplyId = #{projectreplyid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shuren.pojo.ProjectReply" >
+    insert into projectreply (ProjectReplyId, Name, Overview, 
+      UserId, Performer, HowMuch, 
+      Remark, State, Approver
+      )
+    values (#{projectreplyid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{overview,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=INTEGER}, #{performer,jdbcType=VARCHAR}, #{howmuch,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{approver,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shuren.pojo.ProjectReply" >
+    insert into projectreply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectreplyid != null" >
+        ProjectReplyId,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="overview != null" >
+        Overview,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="performer != null" >
+        Performer,
+      </if>
+      <if test="howmuch != null" >
+        HowMuch,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="approver != null" >
+        Approver,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectreplyid != null" >
+        #{projectreplyid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="overview != null" >
+        #{overview,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="performer != null" >
+        #{performer,jdbcType=VARCHAR},
+      </if>
+      <if test="howmuch != null" >
+        #{howmuch,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="approver != null" >
+        #{approver,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shuren.pojo.ProjectReply" >
+    update projectreply
+    <set >
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="overview != null" >
+        Overview = #{overview,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="performer != null" >
+        Performer = #{performer,jdbcType=VARCHAR},
+      </if>
+      <if test="howmuch != null" >
+        HowMuch = #{howmuch,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="approver != null" >
+        Approver = #{approver,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ProjectReplyId = #{projectreplyid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.ProjectReply" >
+    update projectreply
+    set Name = #{name,jdbcType=VARCHAR},
+      Overview = #{overview,jdbcType=VARCHAR},
+      UserId = #{userid,jdbcType=INTEGER},
+      Performer = #{performer,jdbcType=VARCHAR},
+      HowMuch = #{howmuch,jdbcType=VARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR},
+      State = #{state,jdbcType=INTEGER},
+      Approver = #{approver,jdbcType=VARCHAR}
+    where ProjectReplyId = #{projectreplyid,jdbcType=INTEGER}
+  </update>
+  
+   <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from projectreply
+  </select>
+  
+  <select id="selectByIf" parameterType="ProjectReply" resultType="ProjectReply" >
+    select 
+    <include refid="Base_Column_List" />
+    from projectreply 
+    <where>
+    <if test="projectreplyid != null" >
+        and ProjectReplyId=#{projectreplyid}
+      </if>
+      <if test="name != null" >
+        and Name like "%"#{name}"%"
+      </if>
+      <if test="overview != null" >
+        and Overview=#{overview}
+      </if>
+      <if test="userid != null" >
+        and UserId=#{userid}
+      </if>
+      <if test="performer != null" >
+        and Performer=#{performer}
+      </if>
+      <if test="howmuch != null" >
+        and HowMuch=#{howmuch}
+      </if>
+      <if test="remark != null" >
+        and Remark=#{remark}
+      </if>
+      <if test="state != null" >
+        and State=#{state}
+      </if>
+       <if test="approver != null" >
+        and Approver=#{approver}
+      </if>
+    </where>
+  </select>
+</mapper>

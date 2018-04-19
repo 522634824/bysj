@@ -3,11 +3,11 @@
 <mapper namespace="com.shuren.mapper.EquipmentRootMapper" >
   <resultMap id="BaseResultMap" type="com.shuren.pojo.EquipmentRoot" >
     <id column="EquipmentRootId" property="equipmentrootid" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="explain" property="explain" jdbcType="VARCHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    EquipmentRootId, name, explain
+    EquipmentRootId, Name, Remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -20,9 +20,9 @@
     where EquipmentRootId = #{equipmentrootid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.shuren.pojo.EquipmentRoot" >
-    insert into equipmentroot (EquipmentRootId, name, explain
+    insert into equipmentroot (EquipmentRootId, Name, Remark
       )
-    values (#{equipmentrootid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{explain,jdbcType=VARCHAR}
+    values (#{equipmentrootid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.shuren.pojo.EquipmentRoot" >
@@ -32,10 +32,10 @@
         EquipmentRootId,
       </if>
       <if test="name != null" >
-        name,
+        Name,
       </if>
-      <if test="explain != null" >
-        explain,
+      <if test="remark != null" >
+        Remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -45,8 +45,8 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="explain != null" >
-        #{explain,jdbcType=VARCHAR},
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -54,23 +54,25 @@
     update equipmentroot
     <set >
       <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+        Name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="explain != null" >
-        explain = #{explain,jdbcType=VARCHAR},
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where EquipmentRootId = #{equipmentrootid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.EquipmentRoot" >
     update equipmentroot
-    set name = #{name,jdbcType=VARCHAR},
-      explain = #{explain,jdbcType=VARCHAR}
+    set Name = #{name,jdbcType=VARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR}
     where EquipmentRootId = #{equipmentrootid,jdbcType=INTEGER}
   </update>
   
    <select id="selectAll" resultMap="BaseResultMap" >
-    select * from equipmentroot
+    select 
+    <include refid="Base_Column_List" />
+    from equipmentroot
   </select>
   
 </mapper>

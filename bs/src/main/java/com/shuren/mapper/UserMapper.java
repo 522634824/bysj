@@ -16,14 +16,13 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
-    
- User selectByUsername(String username);
-    
-    List<User> selectLikeUsername(String username);
-    
-    Integer selectUserCount();
-    
-    List<User> selectAllUser();
-    
-    int updatePassword(User user);
+
+	User selectByUsername(String username);
+
+	Integer selectUserCount();
+
+	List<User> selectAllUser();
+
+	List<User> selectLikeUsername(String username);
+	
 }

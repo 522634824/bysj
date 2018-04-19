@@ -89,7 +89,7 @@
 <body>
 <div id="login">
 
-	<form id="loginform" class="loginform" action="${pageContext.request.contextPath}/login.action" method="post">
+	<form id="loginform" class="loginform" action="${pageContext.request.contextPath}/user/login.action" method="post">
 		<p><input type="text" name="username" id="user" placeholder="用户名"></p>
 		<p><input type="password" name="password" id="pwd" placeholder="密码"></p>
 		<p><input type="button" id="btnLogin" value="登录" onclick="javascript:dologin();"></p>

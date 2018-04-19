@@ -3,13 +3,15 @@ package com.shuren.pojo;
 public class Equipment {
     private Integer equipmentid;
 
-    private String equipmentclassid;
+    private Integer equipmentclassid;
+
+    private Integer supplierbrandid;
+
+    private String model;
 
     private String name;
 
-    private String brand;
-
-    private Integer supplierid;
+    private String remark;
 
     public Integer getEquipmentid() {
         return equipmentid;
@@ -19,12 +21,28 @@ public class Equipment {
         this.equipmentid = equipmentid;
     }
 
-    public String getEquipmentclassid() {
+    public Integer getEquipmentclassid() {
         return equipmentclassid;
     }
 
-    public void setEquipmentclassid(String equipmentclassid) {
-        this.equipmentclassid = equipmentclassid == null ? null : equipmentclassid.trim();
+    public void setEquipmentclassid(Integer equipmentclassid) {
+        this.equipmentclassid = equipmentclassid;
+    }
+
+    public Integer getSupplierbrandid() {
+        return supplierbrandid;
+    }
+
+    public void setSupplierbrandid(Integer supplierbrandid) {
+        this.supplierbrandid = supplierbrandid;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model == null ? null : model.trim();
     }
 
     public String getName() {
@@ -35,19 +53,11 @@ public class Equipment {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getBrand() {
-        return brand;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand == null ? null : brand.trim();
-    }
-
-    public Integer getSupplierid() {
-        return supplierid;
-    }
-
-    public void setSupplierid(Integer supplierid) {
-        this.supplierid = supplierid;
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

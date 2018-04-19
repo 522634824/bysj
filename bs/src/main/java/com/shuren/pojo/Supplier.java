@@ -3,11 +3,15 @@ package com.shuren.pojo;
 public class Supplier {
     private Integer supplierid;
 
+    private Integer suppliertypeid;
+
     private String name;
 
     private String address;
 
-    private String content;
+    private String tel;
+
+    private String managementcontent;
 
     public Integer getSupplierid() {
         return supplierid;
@@ -15,6 +19,14 @@ public class Supplier {
 
     public void setSupplierid(Integer supplierid) {
         this.supplierid = supplierid;
+    }
+
+    public Integer getSuppliertypeid() {
+        return suppliertypeid;
+    }
+
+    public void setSuppliertypeid(Integer suppliertypeid) {
+        this.suppliertypeid = suppliertypeid;
     }
 
     public String getName() {
@@ -33,11 +45,19 @@ public class Supplier {
         this.address = address == null ? null : address.trim();
     }
 
-    public String getContent() {
-        return content;
+    public String getTel() {
+        return tel;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setTel(String tel) {
+        this.tel = tel == null ? null : tel.trim();
+    }
+
+    public String getManagementcontent() {
+        return managementcontent;
+    }
+
+    public void setManagementcontent(String managementcontent) {
+        this.managementcontent = managementcontent == null ? null : managementcontent.trim();
     }
 }

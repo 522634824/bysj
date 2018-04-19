@@ -7,13 +7,13 @@ public class SupplierStaff {
 
     private String name;
 
+    private String num;
+
     private String email;
 
     private String tel;
 
-    private Integer function;
-
-    private String explain;
+    private String remark;
 
     public Integer getSupplierstaffid() {
         return supplierstaffid;
@@ -39,6 +39,14 @@ public class SupplierStaff {
         this.name = name == null ? null : name.trim();
     }
 
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num == null ? null : num.trim();
+    }
+
     public String getEmail() {
         return email;
     }
@@ -55,19 +63,18 @@ public class SupplierStaff {
         this.tel = tel == null ? null : tel.trim();
     }
 
-    public Integer getFunction() {
-        return function;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setFunction(Integer function) {
-        this.function = function;
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
-    public String getExplain() {
-        return explain;
-    }
-
-    public void setExplain(String explain) {
-        this.explain = explain == null ? null : explain.trim();
-    }
+	@Override
+	public String toString() {
+		return "SupplierStaff [supplierstaffid=" + supplierstaffid + ", supplierid=" + supplierid + ", name=" + name
+				+ ", num=" + num + ", email=" + email + ", tel=" + tel + ", remark=" + remark + "]";
+	}
+    
 }

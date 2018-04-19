@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shuren.mapper.SupplierTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.shuren.pojo.SupplierType" >
+    <id column="SupplierTypeId" property="suppliertypeid" jdbcType="INTEGER" />
+    <result column="SupplierTypeName" property="suppliertypename" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SupplierTypeId, SupplierTypeName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from suppliertype
+    where SupplierTypeId = #{suppliertypeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from suppliertype
+    where SupplierTypeId = #{suppliertypeid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shuren.pojo.SupplierType" >
+    insert into suppliertype (SupplierTypeId, SupplierTypeName)
+    values (#{suppliertypeid,jdbcType=INTEGER}, #{suppliertypename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shuren.pojo.SupplierType" >
+    insert into suppliertype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="suppliertypeid != null" >
+        SupplierTypeId,
+      </if>
+      <if test="suppliertypename != null" >
+        SupplierTypeName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="suppliertypeid != null" >
+        #{suppliertypeid,jdbcType=INTEGER},
+      </if>
+      <if test="suppliertypename != null" >
+        #{suppliertypename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shuren.pojo.SupplierType" >
+    update suppliertype
+    <set >
+      <if test="suppliertypename != null" >
+        SupplierTypeName = #{suppliertypename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SupplierTypeId = #{suppliertypeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.SupplierType" >
+    update suppliertype
+    set SupplierTypeName = #{suppliertypename,jdbcType=VARCHAR}
+    where SupplierTypeId = #{suppliertypeid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAllSupplierType" resultMap="BaseResultMap"  >
+    select * from suppliertype
+  </select>
+  
+</mapper>
