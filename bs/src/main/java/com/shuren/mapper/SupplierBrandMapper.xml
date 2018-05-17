@@ -1,83 +1,133 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shuren.mapper.SupplierBrandMapper" >
-  <resultMap id="BaseResultMap" type="com.shuren.pojo.SupplierBrand" >
-    <id column="SupplierBrandId" property="supplierbrandid" jdbcType="INTEGER" />
-    <result column="SupplierId" property="supplierid" jdbcType="INTEGER" />
-    <result column="Name" property="name" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    SupplierBrandId, SupplierId, Name
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from supplierbrand
-    where SupplierBrandId = #{supplierbrandid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from supplierbrand
-    where SupplierBrandId = #{supplierbrandid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.shuren.pojo.SupplierBrand" >
-    insert into supplierbrand (SupplierBrandId, SupplierId, Name
-      )
-    values (#{supplierbrandid,jdbcType=INTEGER}, #{supplierid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.shuren.pojo.SupplierBrand" >
-    insert into supplierbrand
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="supplierbrandid != null" >
-        SupplierBrandId,
-      </if>
-      <if test="supplierid != null" >
-        SupplierId,
-      </if>
-      <if test="name != null" >
-        Name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="supplierbrandid != null" >
-        #{supplierbrandid,jdbcType=INTEGER},
-      </if>
-      <if test="supplierid != null" >
-        #{supplierid,jdbcType=INTEGER},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shuren.pojo.SupplierBrand" >
-    update supplierbrand
-    <set >
-      <if test="supplierid != null" >
-        SupplierId = #{supplierid,jdbcType=INTEGER},
-      </if>
-      <if test="name != null" >
-        Name = #{name,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where SupplierBrandId = #{supplierbrandid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.SupplierBrand" >
-    update supplierbrand
-    set SupplierId = #{supplierid,jdbcType=INTEGER},
-      Name = #{name,jdbcType=VARCHAR}
-    where SupplierBrandId = #{supplierbrandid,jdbcType=INTEGER}
-  </update>
-  
-  <select id="selectAllSupplierBrand" resultMap="BaseResultMap" >
-    select 
-    <include refid="Base_Column_List" />
-    from supplierbrand
-  </select>
-  
-  <select id="selectBySupplierId" resultMap="BaseResultMap" parameterType="Integer">
-    select 
-    <include refid="Base_Column_List" />
-    from supplierbrand where supplierid=#{supplierid}
-  </select>
+<mapper namespace="com.shuren.mapper.SupplierBrandMapper">
+
+	<resultMap id="BaseResultMap"
+		type="com.shuren.pojo.SupplierBrand">
+		<id column="SupplierBrandId" property="supplierbrandid"
+			jdbcType="INTEGER" />
+		<result column="SupplierId" property="supplierid"
+			jdbcType="INTEGER" />
+		<result column="Name" property="name" jdbcType="VARCHAR" />
+		<association property="supplier" javaType="Supplier">
+			<!-- id:声明主键，表示user_id是关联查询对象的唯一标识 -->
+			<id property="supplierid" column="SupplierId" />
+			<result property="suppliertypeid" column="SupplierTypeId" />
+			<result property="name" column="suppliername" />
+			<result property="address" column="Address" />
+			<result property="tel" column="Tel" />
+			<result property="managementcontent"
+				column="ManagementContent" />
+		</association>
+	</resultMap>
+
+
+
+	<sql id="Base_Column_List">
+		SupplierBrandId, SupplierId, Name
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from supplierbrand
+		where SupplierBrandId =
+		#{supplierbrandid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from supplierbrand
+		where SupplierBrandId =
+		#{supplierbrandid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.shuren.pojo.SupplierBrand">
+		insert into supplierbrand (SupplierBrandId, SupplierId,
+		Name
+		)
+		values (#{supplierbrandid,jdbcType=INTEGER},
+		#{supplierid,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.shuren.pojo.SupplierBrand">
+		insert into supplierbrand
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="supplierbrandid != null">
+				SupplierBrandId,
+			</if>
+			<if test="supplierid != null">
+				SupplierId,
+			</if>
+			<if test="name != null">
+				Name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="supplierbrandid != null">
+				#{supplierbrandid,jdbcType=INTEGER},
+			</if>
+			<if test="supplierid != null">
+				#{supplierid,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.shuren.pojo.SupplierBrand">
+		update supplierbrand
+		<set>
+			<if test="supplierid != null">
+				SupplierId = #{supplierid,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				Name = #{name,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where SupplierBrandId = #{supplierbrandid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.shuren.pojo.SupplierBrand">
+		update supplierbrand
+		set SupplierId =
+		#{supplierid,jdbcType=INTEGER},
+		Name = #{name,jdbcType=VARCHAR}
+		where
+		SupplierBrandId = #{supplierbrandid,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectAllSupplierBrand" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from supplierbrand
+	</select>
+
+	<select id="selectBySupplierId" resultMap="BaseResultMap"
+		parameterType="Integer">
+		select
+		<include refid="Base_Column_List" />
+		from supplierbrand where supplierid=#{supplierid}
+	</select>
+
+	<select id="selectByIf" resultMap="BaseResultMap"
+		parameterType="SupplierBrand">
+		select a.name as suppliername,b.*
+		from supplier a,supplierbrand b
+		<where>
+			a.supplierid=b.supplierid
+			<if test="supplierid != null">
+				and b.SupplierId = #{supplierid,jdbcType=INTEGER}
+			</if>
+			<if test="name != null">
+				and b.Name = #{name,jdbcType=VARCHAR}
+			</if>
+		</where>
+
+
+	</select>
+
+
 </mapper>

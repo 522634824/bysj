@@ -19,7 +19,7 @@
 				pageList : [ 10, 20, 30 ],
 				rownumbers : true,
 				fit:true,
-				fitColumns:false,
+				fitColumns:true,
 				toolbar : '#tb',
 				url : '${pageContext.request.contextPath}/user/userlist.action'
 				 
@@ -39,7 +39,11 @@
 	        } else if(row.power == 1){  
 	            return '用户' ;   
 	        } else if(row.power == 2){
-	        	return '审批组' ;  
+	        	return '部门主管' ;  
+	        } else if(row.power == 3){
+	        	return '领导' ;  
+	        }  else if(row.power == -1){
+	        	return '未激活' ;  
 	        } 
 	} 
 	</script>
@@ -67,12 +71,7 @@
 				href="javascript:deleteUser()" class="easyui-linkbutton"
 				iconCls="icon-remove" plain="true">删除</a>
 		</div>
-		<div>
-			&nbsp;用户名：&nbsp;<input id="userSearch" class="easyui-textbox" size="20"
-				onkeydown="if(event.keyCode==13) searchUser()" />&nbsp; <a
-				href="javascript:searchUser()" class="easyui-linkbutton"
-				iconCls="icon-search" plain="true">搜索</a>
-		</div>
+		
 	</div>
 
 	<div id="dlg" class="easyui-dialog"
@@ -113,10 +112,11 @@
 				<tr>
 					<td>权限：</td>
 					<td><select  name="power" class="easyui-combobox" panelHeight="auto" style = "width:80px;"
-						required="true" da>
+						required="true">
 							<option value="0">管理员</option>
 							<option value="1">用户</option>
-							<option value="2">审批组</option>
+							<option value="2">部门主管</option>
+							<option value="3">领导</option>
 					</select>&nbsp;<font color="red">*</font></td>
 				</tr>
 			</table>
@@ -140,7 +140,9 @@
 						required="true">
 							<option value="0">管理员</option>
 							<option value="1">用户</option>
-							<option value="2">审批组</option>
+							<option value="2">部门主管</option>
+							<option value="3">领导</option>
+							<option value="-1">未激活</option>
 					</select>&nbsp;<font color="red">*</font></td>
 				</tr>
 			</table>
@@ -174,8 +176,13 @@
 				onSubmit : function() {
 					return $(this).form("validate");
 				},
-				success : function(result) {
-					$.messager.alert("系统提示", "保存成功");
+				success : function(data) {
+					var result = eval('(' + data + ')');
+					if(result.success){
+						$.messager.alert("系统提示", "保存成功！");
+					}else{
+						$.messager.alert("系统提示", "保存失败！");
+					}
 					resetValue();
 					$("#dlg").dialog("close");
 					$("#dg").datagrid("reload");

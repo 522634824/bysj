@@ -60,4 +60,11 @@ public class Supplier {
     public void setManagementcontent(String managementcontent) {
         this.managementcontent = managementcontent == null ? null : managementcontent.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Supplier [supplierid=" + supplierid + ", suppliertypeid=" + suppliertypeid + ", name=" + name
+				+ ", address=" + address + ", tel=" + tel + ", managementcontent=" + managementcontent + "]";
+	}
+    
 }

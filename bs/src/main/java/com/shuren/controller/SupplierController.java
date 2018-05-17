@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.shuren.pojo.Supplier;
+import com.shuren.pojo.SupplierBrand;
 import com.shuren.pojo.SupplierStaff;
 
 import com.shuren.service.SupplierService;
@@ -31,6 +32,15 @@ public class SupplierController {
 	public String allSupplier() {
 		JSONArray array=new JSONArray();
 		List<Supplier> list=service.selectAllSupplier();
+		String result=array.toJSONString(list);
+		return result;
+	}
+	
+	@RequestMapping("SupplierByBrand")
+	@ResponseBody
+	public String SupplierByBrand(SupplierBrand brand) {
+		JSONArray array=new JSONArray();
+		List<Supplier> list=service.selectByBrand(brand);
 		String result=array.toJSONString(list);
 		return result;
 	}
@@ -64,9 +74,6 @@ public class SupplierController {
         }   
         ResponseUtil.write(response, result);
         return null;
-		
-		
-		
 	}
 
 	@RequestMapping("deleteSupplier")

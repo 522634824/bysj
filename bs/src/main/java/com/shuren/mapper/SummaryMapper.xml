@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shuren.mapper.SummaryMapper" >
+  <resultMap id="BaseResultMap" type="com.shuren.pojo.Summary" >
+    <id column="SummaryId" property="summaryid" jdbcType="INTEGER" />
+    <result column="ProjectId" property="projectid" jdbcType="VARCHAR" />
+    <result column="SummaryContent" property="summarycontent" jdbcType="VARCHAR" />
+    <result column="UserId" property="userid" jdbcType="INTEGER" />
+    <result column="Submitter" property="submitter" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SummaryId, ProjectId, SummaryContent, UserId, Submitter
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from summary
+    where SummaryId = #{summaryid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from summary
+    where SummaryId = #{summaryid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shuren.pojo.Summary" >
+    insert into summary (SummaryId, ProjectId, SummaryContent, 
+      UserId, Submitter)
+    values (#{summaryid,jdbcType=INTEGER}, #{projectid,jdbcType=VARCHAR}, #{summarycontent,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=INTEGER}, #{submitter,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shuren.pojo.Summary" >
+    insert into summary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="summaryid != null" >
+        SummaryId,
+      </if>
+      <if test="projectid != null" >
+        ProjectId,
+      </if>
+      <if test="summarycontent != null" >
+        SummaryContent,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="submitter != null" >
+        Submitter,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="summaryid != null" >
+        #{summaryid,jdbcType=INTEGER},
+      </if>
+      <if test="projectid != null" >
+        #{projectid,jdbcType=VARCHAR},
+      </if>
+      <if test="summarycontent != null" >
+        #{summarycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="submitter != null" >
+        #{submitter,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shuren.pojo.Summary" >
+    update summary
+    <set >
+      <if test="projectid != null" >
+        ProjectId = #{projectid,jdbcType=VARCHAR},
+      </if>
+      <if test="summarycontent != null" >
+        SummaryContent = #{summarycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="submitter != null" >
+        Submitter = #{submitter,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SummaryId = #{summaryid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.Summary" >
+    update summary
+    set ProjectId = #{projectid,jdbcType=VARCHAR},
+      SummaryContent = #{summarycontent,jdbcType=VARCHAR},
+      UserId = #{userid,jdbcType=INTEGER},
+      Submitter = #{submitter,jdbcType=VARCHAR}
+    where SummaryId = #{summaryid,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectSummaryByIf" resultMap="BaseResultMap" parameterType="com.shuren.pojo.Summary" >
+    select 
+    <include refid="Base_Column_List" />
+    from summary
+    <where>
+    <if test="projectid != null" >
+       and ProjectId = #{projectid,jdbcType=VARCHAR}
+      </if>
+      <if test="summarycontent != null" >
+        and SummaryContent = #{summarycontent,jdbcType=VARCHAR}
+      </if>
+      <if test="userid != null" >
+        and UserId = #{userid,jdbcType=INTEGER}
+      </if>
+      <if test="submitter != null" >
+        and Submitter = #{submitter,jdbcType=VARCHAR}
+      </if>
+    
+    </where>
+  </select>
+</mapper>

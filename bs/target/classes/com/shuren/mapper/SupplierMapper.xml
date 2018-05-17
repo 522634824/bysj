@@ -108,4 +108,32 @@
 		select * from supplier
 	</select>
 	
+		<select id="selectByBrand" resultType="Supplier" parameterType="SupplierBrand">
+		select * from supplier a,supplierbrand b
+		where a.SupplierId=b.SupplierId and b.SupplierBrandId=#{SupplierBrandId}
+	</select>
+	
+	<select id="selectByIf" parameterType="Supplier" resultType="Supplier">
+    select * from supplier
+    <where>
+      <if test="suppliertypeid != null" >
+        and SupplierTypeId = #{suppliertypeid,jdbcType=INTEGER}
+      </if>
+      <if test="name != null" >
+        and Name like "%"#{name,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="address != null" >
+        and Address = #{address,jdbcType=VARCHAR}
+      </if>
+      <if test="tel != null" >
+        and Tel = #{tel,jdbcType=VARCHAR}
+      </if>
+      <if test="managementcontent != null" >
+        and ManagementContent = #{managementcontent,jdbcType=VARCHAR}
+      </if>
+    </where>
+    where SupplierId = #{supplierid,jdbcType=INTEGER}
+  </select>
+	
+	
 </mapper>

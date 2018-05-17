@@ -18,9 +18,20 @@
 				href="javascript:openModifyDialog()" class="easyui-linkbutton"
 				iconCls="icon-edit" plain="true">修改</a> <a
 				href="javascript:deleteSupplier()" class="easyui-linkbutton"
-				iconCls="icon-remove" plain="true">删除</a> <a
+				iconCls="icon-remove" plain="true">删除</a>
+				<div>
+				<a
 				href="javascript:Suppliersatff()" class="easyui-linkbutton"
-				iconCls="icon-remove" plain="true">人员信息</a>
+				iconCls="icon-remove" plain="true">人员信息</a><a
+				href="javascript:SupplierBrand()" class="easyui-linkbutton"
+				iconCls="icon-remove" plain="true">品牌信息</a>
+				</div>
+		</div>
+		<div>
+			&nbsp;供应商名称：&nbsp;<input id="nameSearch" class="easyui-textbox"
+				size="20"  onkeydown="if(event.keyCode==13) search()" />&nbsp;
+			&nbsp;<a href="javascript:search()" class="easyui-linkbutton"
+				iconCls="icon-search" plain="true">搜索</a>
 		</div>
 	</div>
 
@@ -42,7 +53,8 @@
 				</tr>
 				<tr>
 					<td>供应商类型：</td>
-					<td><input id="suppliertypeid" name="suppliertypeid" class="easyui-combobox" panelHeight="auto"
+					<td><input id="suppliertypeid" name="suppliertypeid"
+						class="easyui-combobox" panelHeight="auto"
 						data-options=" url:'${pageContext.request.contextPath}/supplier/allSupplieType.action',
                             valueField:'suppliertypeid',
                             textField:'suppliertypename'" /></td>
@@ -93,6 +105,8 @@
 								pageSize : 10,
 								pageList : [ 10, 20, 30 ],
 								rownumbers : true,
+								fit:true,
+								fitColumns:true,
 								toolbar : '#ptb',
 								url : '${pageContext.request.contextPath}/supplier/supplierstaffList.action?supplierid='
 										+ row.supplierid,
@@ -112,6 +126,11 @@
 									width : 150,
 									align : 'center'
 								}, {
+									title : '工号',
+									field : 'num',
+									width : 150,
+									align : 'center'
+								}, {
 									title : '联系电话',
 									field : 'tel',
 									width : 150,
@@ -123,7 +142,7 @@
 									align : 'center'
 								}, {
 									title : '备注',
-									field : 'explain',
+									field : 'remark',
 									width : 150,
 									align : 'center'
 								} ] ],
@@ -148,7 +167,7 @@
 								pageSize : 10,
 								pageList : [ 10, 20, 30 ],
 								rownumbers : true,
-								toolbar : '#tb',
+								toolbar : '#ptb',
 								url : '${pageContext.request.contextPath}/supplier/supplierList.action',
 								columns : [ [ {
 									field : 'cb',
@@ -218,7 +237,7 @@
 									field : 'tel',
 									width : 150,
 									align : 'center'
-								},  {
+								}, {
 									title : '经营内容',
 									field : 'managementcontent',
 									width : 150,
@@ -235,6 +254,7 @@
 
 		function closeDialog() {
 			$("#dlg").dialog("close");
+			$("#branddlg").dialog("close");
 			resetValue();
 		}
 
@@ -244,8 +264,13 @@
 				onSubmit : function() {
 					return $(this).form("validate");
 				},
-				success : function(result) {
-					$.messager.alert("系统提示", "保存成功");
+				success : function(data) {
+					var result = eval('(' + data + ')');
+					if(result.success){
+						$.messager.alert("系统提示", "保存成功！");
+					}else{
+						$.messager.alert("系统提示", "保存失败！");
+					}
 					resetValue();
 					$("#dlg").dialog("close");
 					$("#dg").datagrid("reload");
@@ -315,7 +340,77 @@
 			$("#address").val("");
 			$("#tel").val("");
 			$("#managementcontent").val("");
+			
 		}
+		
+		
+		function search() {
+			$("#dg").datagrid('load', {
+				"name" : $("#nameSearch").val(),
+			});
+			
+
+		}
+		
+				
+	</script>
+	
+	<!-- 供应商品牌 -->
+	<script type="text/javascript">
+	function SupplierBrand(){
+		var selectedRows = $("#dg").datagrid('getSelections');
+		if (selectedRows.length != 1) {
+			$.messager.alert("系统提示", "请选择一条数据！");
+			return;
+		}
+		var row = selectedRows[0];
+		$('#dg')
+		.datagrid({
+			loadFilter : pagerFilter
+		})
+		.datagrid(
+				{
+					fit : true,
+					fitColumns : true,
+					title : '供应商品牌信息',
+					pagination : true,
+					pageSize : 10,
+					pageList : [ 10, 20, 30 ],
+					rownumbers : true,
+					toolbar : '#tb',
+					url : '${pageContext.request.contextPath}/supplier/SupplierBrand.action?supplierid='+row.supplierid,
+					columns : [ [ {
+						field : 'cb',
+						checkbox : true
+					}, //选择 
+					{
+						title : '编号',
+						field : 'supplierbrandid',
+						width : 150,
+						align : 'center',
+						hidden : 'true'
+					}, {
+						title : '品牌名称',
+						field : 'name',
+						width : 150,
+						align : 'center'
+					},{
+						title : '供应商名称',
+						field : 'suppliername',
+						width : 150,
+						align : 'center',
+							formatter : function(value, row, index) {
+								return row.supplier.name;
+							}
+					}, ] ],
+					onLoadSuccess : function(data) {
+						$('#tb').hide();
+						$('#ptb').show();
+					}
+				});
+	}
+	
+	
 	</script>
 </body>
 </html>

@@ -137,4 +137,34 @@
   <select id="selectAllUser" parameterType="String" resultType="User">
   select * from userinfo
   </select>
+  
+  <select id="selectByIf" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from userinfo
+    <where>
+    <if test="username != null" >
+       and UserName like "%"#{username,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="password != null" >
+       and Password = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null" >
+       and Name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="sex != null" >
+       and Sex = #{sex,jdbcType=INTEGER}
+      </if>
+      <if test="age != null" >
+       and Age = #{age,jdbcType=INTEGER}
+      </if>
+      <if test="tel != null" >
+       and Tel = #{tel,jdbcType=VARCHAR}
+      </if>
+      <if test="power != null" >
+       and Power = #{power,jdbcType=INTEGER}
+      </if>
+    </where>
+    Order By username Desc
+  </select>
 </mapper>

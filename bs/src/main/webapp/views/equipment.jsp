@@ -18,12 +18,12 @@
 				href="javascript:deleteSupplier()" class="easyui-linkbutton"
 				iconCls="icon-remove" plain="true">删除</a>
 		</div>
-		<div>
-			&nbsp;供应商名：&nbsp;<input id="Search" class="easyui-textbox" size="20"
-				onkeydown="if(event.keyCode==13) searchUser()" />&nbsp; <a
-				href="javascript:searchUser()" class="easyui-linkbutton"
+		<!-- <div>
+			&nbsp;供应商名：&nbsp;<input id="searchstaff" class="easyui-textbox" size="20"
+				onkeydown="if(event.keyCode==13) Search()" />&nbsp; <a
+				href="javascript:Search()" class="easyui-linkbutton"
 				iconCls="icon-search" plain="true">搜索</a>
-		</div>
+		</div> -->
 	</div>
 
 
@@ -101,13 +101,13 @@
 					})
 					.datagrid(
 							{
-								title : '设备信息管理',
+								title : '网络设备信息管理',
 								pagination : true,
 								pageSize : 10,
 								pageList : [ 10, 20, 30 ],
 								rownumbers : true,
 								fit : true,
-								fitColumns : false,
+								fitColumns : true,
 								toolbar : '#tb',
 								url : '${pageContext.request.contextPath}/equipment/allEquipment.action',
 								columns : [ [ {
@@ -117,12 +117,33 @@
 								{
 									title : '名称',
 									field : 'name',
-									width : '50%',
+									width : '150',
 									align : 'center'
 								}, {
+									title : '品牌',
+									field : 'supplierbrandname',
+									width : '150',
+									align : 'center',
+										formatter: function (value, row, index) {
+						                    return row.supplierbrand.name  
+						           }
+								}, {
+									title : '型号',
+									field : 'model',
+									width : '150',
+									align : 'center'
+								}, {
+									title : '供应商名称',
+									field : 'suppliername',
+									width : '150',
+									align : 'center',
+										formatter: function (value, row, index) {
+						                    return row.supplier.name  
+										}
+						           }, {
 									title : '备注',
 									field : 'remark',
-									width : '50%',
+									width : '150',
 									align : 'center'
 								}, ] ],
 							});
@@ -140,11 +161,19 @@
 				onSubmit : function() {
 					return $(this).form("validate");
 				},
-				success : function(result) {
-					$.messager.alert("系统提示", "保存成功");
-					resetValue();
-					$("#dlg").dialog("close");
-					$("#dg").datagrid("reload");
+				success : function(data) {
+					var result = eval('(' + data + ')');
+					if(result.success){
+						$.messager.alert("系统提示", "保存成功！");
+						resetValue();
+						$("#dlg").dialog("close");
+						$("#dg").datagrid("reload");
+					}else{
+						$.messager.alert("系统提示", "保存失败！");
+						resetValue();
+						$("#dlg").dialog("close");
+						$("#dg").datagrid("reload");
+					}
 
 				}
 			});
@@ -221,6 +250,13 @@
 			$("#name").val("");
 			$("#remark").val("");
 		}
+		
+		function Search(){
+			 $("#dg").datagrid('load', {
+	                "staffname": $("#searchstaff").val()
+	            });
+}
+		
 	</script>
 </body>
 </html>

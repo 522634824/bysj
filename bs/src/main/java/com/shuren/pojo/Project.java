@@ -3,13 +3,11 @@ package com.shuren.pojo;
 import java.util.Date;
 
 public class Project {
-    private String projectinforid;
+    private String projectid;
 
     private String name;
 
     private String overview;
-
-    private Integer projectyear;
 
     private String purchasenumber;
 
@@ -17,20 +15,30 @@ public class Project {
 
     private String performer;
 
-    private Integer supplierid;
+    private String contractcode;
 
-    private Date contractcode;
+    private Date startdate;
 
     private Date completedate;
 
     private Integer state;
+    
+    private int completecount;
 
-    public String getProjectinforid() {
-        return projectinforid;
+    public int getCompletecount() {
+		return completecount;
+	}
+
+	public void setCompletecount(int completecount) {
+		this.completecount = completecount;
+	}
+
+	public String getProjectid() {
+        return projectid;
     }
 
-    public void setProjectinforid(String projectinforid) {
-        this.projectinforid = projectinforid == null ? null : projectinforid.trim();
+    public void setProjectid(String projectid) {
+        this.projectid = projectid == null ? null : projectid.trim();
     }
 
     public String getName() {
@@ -47,14 +55,6 @@ public class Project {
 
     public void setOverview(String overview) {
         this.overview = overview == null ? null : overview.trim();
-    }
-
-    public Integer getProjectyear() {
-        return projectyear;
-    }
-
-    public void setProjectyear(Integer projectyear) {
-        this.projectyear = projectyear;
     }
 
     public String getPurchasenumber() {
@@ -81,20 +81,20 @@ public class Project {
         this.performer = performer == null ? null : performer.trim();
     }
 
-    public Integer getSupplierid() {
-        return supplierid;
-    }
-
-    public void setSupplierid(Integer supplierid) {
-        this.supplierid = supplierid;
-    }
-
-    public Date getContractcode() {
+    public String getContractcode() {
         return contractcode;
     }
 
-    public void setContractcode(Date contractcode) {
-        this.contractcode = contractcode;
+    public void setContractcode(String contractcode) {
+        this.contractcode = contractcode == null ? null : contractcode.trim();
+    }
+
+    public Date getStartdate() {
+        return startdate;
+    }
+
+    public void setStartdate(Date startdate) {
+        this.startdate = startdate;
     }
 
     public Date getCompletedate() {
@@ -112,4 +112,15 @@ public class Project {
     public void setState(Integer state) {
         this.state = state;
     }
+
+	@Override
+	public String toString() {
+		return "Project [projectid=" + projectid + ", name=" + name + ", overview=" + overview + ", purchasenumber="
+				+ purchasenumber + ", userid=" + userid + ", performer=" + performer + ", contractcode=" + contractcode
+				+ ", startdate=" + startdate + ", completedate=" + completedate + ", state=" + state
+				+ ", completecount=" + completecount + "]";
+	}
+
+	
+    
 }

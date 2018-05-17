@@ -26,6 +26,6 @@ public interface UserService {
 
 	public abstract List<User> selectAllUser();
 	
-	public abstract int updatePassword(User user);
+	public abstract List<User> selectByIf(User user);
 	
 }

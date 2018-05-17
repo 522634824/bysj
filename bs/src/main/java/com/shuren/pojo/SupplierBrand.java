@@ -6,8 +6,18 @@ public class SupplierBrand {
     private Integer supplierid;
 
     private String name;
+    
+    private Supplier supplier;
 
-    public Integer getSupplierbrandid() {
+    public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
+	public Integer getSupplierbrandid() {
         return supplierbrandid;
     }
 

@@ -12,6 +12,7 @@ import com.shuren.mapper.EquipmentRootMapper;
 import com.shuren.pojo.Equipment;
 import com.shuren.pojo.EquipmentClass;
 import com.shuren.pojo.EquipmentRoot;
+import com.shuren.pojo.Equipmentvo;
 import com.shuren.service.EquipmentService;
 
 @Service
@@ -59,7 +60,7 @@ public class EquipmentServiceImpl implements EquipmentService{
 	}
 
 	@Override
-	public List<Equipment> selectAllEquipment() {
+	public List<Equipmentvo> selectAllEquipment() {
 		// TODO Auto-generated method stub
 		return mapper.selectAllEquipment();
 	}

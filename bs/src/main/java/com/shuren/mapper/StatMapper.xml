@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shuren.mapper.StatMapper">
+	<resultMap id="ApplyMap" type="ApplyStat">
+		<result column="userid" property="userid" jdbcType="INTEGER" />
+		<result column="performer" property="performer"
+			jdbcType="VARCHAR" />
+		<result column="applycount" property="applycount"
+			jdbcType="INTEGER" />
+		<result column="passapply" property="passapply"
+			jdbcType="INTEGER" />
+		<result column="unpassapply" property="unpassapply"
+			jdbcType="INTEGER" />
+		<result column="pending" property="pending" jdbcType="INTEGER" />
+		<result column="passrate" property="passrate"
+			jdbcType="VARCHAR" />
+		<result column="nonpassrate" property="nonpassrate"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="ApplyStatByIf" resultMap="ApplyMap"
+		parameterType="QueryDate">
+		select st.*,CONCAT(ROUND(st.passapply/st.applycount*100,1),'%')as
+		passrate ,CONCAT(ROUND(st.unpassapply/st.applycount*100,1),'%') as
+		nonpassrate
+		from(select userid,performer,COUNT(*)as
+		applycount,COUNT(IF(State=2||State=4,true,null))as
+		unpassapply,COUNT(IF(State=3,true,null)) as
+		passapply,COUNT(IF(State=0||State=1,true,null)) as pending
+		from
+		projectreply
+		<where>
+			<if test="startdate != null and enddate != null">
+				submitdate &gt;=#{startdate} and submitdate
+				&lt;=#{enddate}
+			</if>
+		</where>
+		GROUP BY UserId) st
+	</select>
+
+
+
+	<resultMap id="ProjectMap" type="ProjectStat">
+		<result column="userid" property="userid" jdbcType="INTEGER" />
+		<result column="performer" property="performer"
+			jdbcType="VARCHAR" />
+		<result column="completecount" property="completecount"
+			jdbcType="INTEGER" />
+		<result column="howmuch" property="howmuch" jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="ProjectStatByIf" resultMap="ProjectMap"
+		parameterType="QueryDate">
+		SELECT p1.userid userid,p1.performer performer,count(*)
+		completecount,p2.howmuch howmuch FROM
+		(select *
+		from projectinfo
+		<where>
+		State='1'
+		<if test="startdate != null and enddate != null">
+		 and CompleteDate&gt;=#{startdate} and CompleteDate&lt;=#{enddate}
+		</if>
+		</where>
+		) p1
+		,
+		(select p.Performer,SUM(ps.HowMuch) HowMuch
+		from projectinfo
+		p,projectfundsource ps
+		<where> 
+		p.ProjectId=ps.ProjectId and p.State='1'
+		<if test="startdate != null and enddate != null">
+		 and p.CompleteDate&gt;=#{startdate} and p.CompleteDate&lt;=#{enddate} 
+		</if>
+		</where>
+		GROUP BY p.Performer)p2
+		WHERE p1.Performer=p2.Performer
+		GROUP BY p1.performer
+	</select>
+
+<select id="sumHowmuch" resultType="Howmuch">
+select p.Performer,SUM(ps.HowMuch) HowMuch from projectinfo p,projectfundsource ps 
+    <where>
+		p.ProjectId=ps.ProjectId and p.State='1'  
+		<if test="startdate != null and enddate != null">
+		and CompleteDate&gt;=#{startdate} and CompleteDate&lt;=#{enddate}
+		</if>
+		</where>
+		GROUP BY p.Performer
+		
+</select>
+
+
+<select id="selectProjectIsOk" resultType="Project">
+select UserId,Performer,COUNT(*) from projectinfo where State='1' GROUP BY Performer
+</select>
+</mapper>

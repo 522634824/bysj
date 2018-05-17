@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>项目计划书</title>
+<title>项目申报</title>
 <jsp:include page="base.jsp"></jsp:include>
 <link href="${pageContext.request.contextPath}/css/style.css"
 	rel="stylesheet" type="text/css" />
@@ -12,9 +12,15 @@
 <script type="text/javascript">
 	function save() {
 		var url;
+		var projectreplyid = $("#projectreplyid").val();
 		var name = $("#name").val();
 		var overview = $("#overview").val();
 		var howmuch = $("#howmuch").val();
+		var file=$("#file").val();
+		if (projectreplyid == null || projectreplyid == "") {
+			$.messager.alert("系统提示", "项目编号不能为空！");
+			return false;
+		}
 		if (name == null || name == "") {
 			$.messager.alert("系统提示", "项目名不能为空！");
 			return false;
@@ -27,12 +33,25 @@
 			$.messager.alert("系统提示", "申请资金不能为空！");
 			return false;
 		}
+		if (file == null || file == "") {
+			$.messager.alert("系统提示", "请上传项目计划申请书！");
+			return false;
+		}
+		
 		$("#applyform").form("submit", {
 			url : '${pageContext.request.contextPath}/apply/saveApply.action',
-			success : function(result) {
-				$.messager.alert("系统提示", "提交申请成功");
-
+			dataType:"json",
+			success : function(data) {
+				var json = eval("("+data+")");
+				if(json.result){
+					$.messager.alert("系统提示", "提交申请成功！");
+				}else{
+					$.messager.alert("系统提示", "提交申请失败！");	
+				}
+				
 			}
+			
+			
 		});
 
 	}
@@ -46,8 +65,10 @@
 		<div class="formtitle">
 			<span>项目计划书</span>
 		</div>
-		<form id="applyform" name="applyform" method="post">
+		<form id="applyform" name="applyform" method="post" enctype="multipart/form-data">
 			<ul class="forminfo">
+				<li><label>项目编号：</label><input id="projectreplyid"
+					name="projectreplyid" type="text" class="dfinput" />
 				<li><label>项目名称：</label><input id="name" name="name"
 					type="text" class="dfinput" /><i>项目名称不能超过30个字符</i></li>
 				<li><label>项目内容：</label><input id="overview" name="overview"
@@ -58,7 +79,9 @@
 					type="text" class="dfinput" value="${currentUser.name } "
 					readonly="readonly" />
 				<li><label>申请资金：</label><input id="howmuch" name="howmuch"
-					type="text" class="dfinput" />
+					type="text" class="dfinput" /></li>
+				<li><label>选择文件:</label><input type="file" id="file" name="file"
+					width="120px"></li>
 				<li><label>备注：</label> <textarea id="remark" name="remark"
 						class="textinput"></textarea></li>
 				<li><label>&nbsp;</label><input name="btn" type="button"

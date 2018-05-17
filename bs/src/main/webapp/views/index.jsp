@@ -47,10 +47,10 @@
 <body class="easyui-layout">
 	<div class="wu-header"
 		data-options="region:'north',border:false,split:true">
-		<div class="wu-header-left">
+		<div class="wu-header-left" style="margin-top: 10px;" >
 			<h1>网络设备项目信息管理系统</h1>
 		</div>
-		<div class="wu-header-right">
+		<div class="wu-header-right"style="margin-top: 20px;">
 			<p>${currentUser.username},欢迎您！</p>
 
 		</div>
@@ -65,68 +65,62 @@
 	<div class="wu-sidebar"
 		data-options="region:'west',collapsible:false,split:true,border:true,title:'导航菜单'">
 		<div class="easyui-accordion">
-			<div title="项目信息查询" data-options="iconCls:'icon-book'"
+			<div title="信息查询" data-options="iconCls:'icon-application-cascade'"
 				style="padding: 10px">
-				<a href="javascript:openTab(' 项目计划书','apply.jsp','icon-bricks')"
+				<a href="javascript:openTab(' 申报历史','applyList.jsp','icon-bricks')"
 					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-bricks'">项目计划书</a> <a
-					href="javascript:openTab(' 项目信息','apply.jsp','icon-bricks')"
+					data-options="plain:true,iconCls:'icon-bricks'">申报历史</a> <a
+					href="javascript:openTab(' 项目一览','project_list.jsp','icon-bricks')"
 					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-bricks'">项目信息</a> <a
-					href="javascript:openTab(' 资金来源','allBooksManage.jsp','icon-chart-curve')"
-					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-chart-curve'">资金来源</a>
-				<a
-					href="javascript:openTab(' 采购信息','allBooksManage.jsp','icon-bricks')"
-					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-bricks'">采购信息</a>
-			</div>
+					data-options="plain:true,iconCls:'icon-bricks'">项目一览</a>
 
+			</div>
+			<div title="统计报表" data-options="iconCls:'icon-book'"
+				style="padding: 10px;">
+				<a href="javascript:openTab(' 项目申报报表','applystat.jsp','icon-bricks')"
+					class="easyui-linkbutton"
+					data-options="plain:true,iconCls:'icon-bricks'">项目申报报表</a> 
+				<a href="javascript:openTab(' 项目实施报表','projectstat.jsp','icon-bricks')"
+					class="easyui-linkbutton"
+					data-options="plain:true,iconCls:'icon-bricks'">项目实施报表</a>
+			</div>
 			<div title="系统管理" data-options="iconCls:'icon-application-form-edit'"
 				style="padding: 10px">
 				<a
 					href="javascript:openTab(' 供应商信息','supplier.jsp','icon-chart-curve')"
 					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-chart-curve'">供应商信息</a>
-				<a
+					data-options="plain:true,iconCls:'icon-chart-curve'">供应商信息</a> <a
+					href="javascript:openTab(' 供应商品牌信息','supplierbrand.jsp','icon-chart-curve')"
+					class="easyui-linkbutton"
+					data-options="plain:true,iconCls:'icon-chart-curve'">供应商品牌</a> <a
 					href="javascript:openTab(' 供应商人员信息','supplierstaff.jsp','icon-chart-curve')"
 					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-chart-curve'">供应商人员</a>
-				<a
+					data-options="plain:true,iconCls:'icon-chart-curve'">供应商人员</a> <a
 					href="javascript:openTab(' 网络设备信息','equipment.jsp','icon-chart-curve')"
 					class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon-chart-curve'">网络设备信息</a>
-				<a
-					href="javascript:openTab(' 网络设备类型','equipment.jsp','icon-chart-curve')"
-					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-chart-curve'">网络设备类型</a>
-				<a
-					href="javascript:openTab(' 供应商类型','suppliertype.jsp','icon-chart-curve')"
-					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-chart-curve'">供应商类型</a>
 			</div>
-			
 			<div title="用户管理" data-options="iconCls:'icon-application-cascade'"
-				style="padding: 10px; border: none;">
+				style="padding: 10px;">
 				<a
 					href="javascript:openTab(' 用户列表','userManage.jsp','icon-user-group')"
 					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-user-group'"> 用户列表</a> <a
+					data-options="plain:true,iconCls:'icon-user-group'">用户列表</a> <a
+					href="javascript:openTab(' 用户激活','userActivation.jsp','icon-user-group')"
+					class="easyui-linkbutton"
+					data-options="plain:true,iconCls:'icon-user-group'">用户激活</a> <a
 					href="javascript:openTab('基本信息维护','activeUser.jsp','icon-users')"
 					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-users'"> 基本信息维护</a> <a
+					data-options="plain:true,iconCls:'icon-users'">基本信息维护</a> <a
 					href="javascript:logout()" class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon-cog'"> 安全退出</a>
-					 <a
-					href="javascript:openTab('基本信息维护1','NewFile.jsp','icon-users')"
-					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-users'"> 基本信息维护</a>
 			</div>
 		</div>
 	</div>
+
 	<div class="wu-footer"
 		data-options="region:'south',border:true,split:true">&copy; 2018
-		 All Rights Reserved</div>
+		All Rights Reserved</div>
 </body>
 
 </html>

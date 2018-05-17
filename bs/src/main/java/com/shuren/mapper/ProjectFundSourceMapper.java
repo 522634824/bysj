@@ -1,5 +1,7 @@
 package com.shuren.mapper;
 
+import java.util.List;
+
 import com.shuren.pojo.ProjectFundSource;
 
 public interface ProjectFundSourceMapper {
@@ -14,4 +16,6 @@ public interface ProjectFundSourceMapper {
     int updateByPrimaryKeySelective(ProjectFundSource record);
 
     int updateByPrimaryKey(ProjectFundSource record);
+
+	List<ProjectFundSource> selectByIf(ProjectFundSource p);
 }

@@ -70,11 +70,4 @@ public class SupplierStaff {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
-
-	@Override
-	public String toString() {
-		return "SupplierStaff [supplierstaffid=" + supplierstaffid + ", supplierid=" + supplierid + ", name=" + name
-				+ ", num=" + num + ", email=" + email + ", tel=" + tel + ", remark=" + remark + "]";
-	}
-    
 }

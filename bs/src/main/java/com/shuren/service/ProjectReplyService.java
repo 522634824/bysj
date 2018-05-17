@@ -13,4 +13,7 @@ public interface ProjectReplyService {
 	List<ProjectReply> selectByIf(ProjectReply projectreply);
 
 	void updateByIf(ProjectReply projectreply);
+	
+	ProjectReply selectByprojectreplyid(String projectreplyid);
+	
 }

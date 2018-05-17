@@ -20,4 +20,6 @@ public interface SupplierBrandMapper {
 	List<SupplierBrand> selectAllSupplierBrand();
 
 	List<SupplierBrand> selectBySupplierId(int supplierid);
+
+	List<SupplierBrand> selectByIf(SupplierBrand supplierbrand);
 }

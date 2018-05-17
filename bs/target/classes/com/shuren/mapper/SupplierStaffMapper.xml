@@ -125,4 +125,34 @@
     <include refid="Base_Column_List" />
     from supplierstaff  where SupplierId = #{supplierid,jdbcType=INTEGER}
   </select>
+  
+  
+   <select id="selectByIf" parameterType="SupplierStaff" resultType="SupplierStaff" >
+    select * from supplierstaff
+    <where >
+      <if test="supplierid != null" >
+        and SupplierId = #{supplierid,jdbcType=INTEGER}
+      </if>
+      <if test="name != null" >
+        and Name like "%"#{name,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="num != null" >
+        and Num = #{num,jdbcType=VARCHAR}
+      </if>
+      <if test="email != null" >
+        and Email = #{email,jdbcType=VARCHAR}
+      </if>
+      <if test="tel != null" >
+        and Tel = #{tel,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null" >
+       and Remark = #{remark,jdbcType=VARCHAR}
+      </if>
+    </where>
+    
+  </select>
+  
+  
+  
+  
 </mapper>

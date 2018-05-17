@@ -6,9 +6,10 @@
     <result column="Name" property="name" jdbcType="VARCHAR" />
     <result column="HowMuch" property="howmuch" jdbcType="VARCHAR" />
     <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="ProjectId" property="projectid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ProjectFundSourceId, Name, HowMuch, Remark
+    ProjectFundSourceId, Name, HowMuch, Remark, ProjectId
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -22,9 +23,9 @@
   </delete>
   <insert id="insert" parameterType="com.shuren.pojo.ProjectFundSource" >
     insert into projectfundsource (ProjectFundSourceId, Name, HowMuch, 
-      Remark)
+      Remark, ProjectId)
     values (#{projectfundsourceid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{howmuch,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
+      #{remark,jdbcType=VARCHAR}, #{projectid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.shuren.pojo.ProjectFundSource" >
     insert into projectfundsource
@@ -41,6 +42,9 @@
       <if test="remark != null" >
         Remark,
       </if>
+      <if test="projectid != null" >
+        ProjectId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="projectfundsourceid != null" >
@@ -54,6 +58,9 @@
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="projectid != null" >
+        #{projectid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -69,6 +76,9 @@
       <if test="remark != null" >
         Remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="projectid != null" >
+        ProjectId = #{projectid,jdbcType=VARCHAR},
+      </if>
     </set>
     where ProjectFundSourceId = #{projectfundsourceid,jdbcType=INTEGER}
   </update>
@@ -76,7 +86,27 @@
     update projectfundsource
     set Name = #{name,jdbcType=VARCHAR},
       HowMuch = #{howmuch,jdbcType=VARCHAR},
-      Remark = #{remark,jdbcType=VARCHAR}
+      Remark = #{remark,jdbcType=VARCHAR},
+      ProjectId = #{projectid,jdbcType=VARCHAR}
     where ProjectFundSourceId = #{projectfundsourceid,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByIf" resultType="ProjectFundSource" parameterType="ProjectFundSource">
+  select * from projectfundsource
+  <where>
+   <if test="name != null" >
+        and Name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="howmuch != null" >
+        and HowMuch = #{howmuch,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null" >
+        and Remark = #{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="projectid != null" >
+        and ProjectId = #{projectid,jdbcType=VARCHAR}
+      </if>
+  </where>
+  
+  </select>
 </mapper>

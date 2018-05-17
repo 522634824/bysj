@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.shuren.mapper.ProjectReplyMapper" >
   <resultMap id="BaseResultMap" type="com.shuren.pojo.ProjectReply" >
-    <id column="ProjectReplyId" property="projectreplyid" jdbcType="INTEGER" />
+    <id column="ProjectReplyId" property="projectreplyid" jdbcType="VARCHAR" />
     <result column="Name" property="name" jdbcType="VARCHAR" />
     <result column="Overview" property="overview" jdbcType="VARCHAR" />
     <result column="UserId" property="userid" jdbcType="INTEGER" />
@@ -10,30 +10,33 @@
     <result column="HowMuch" property="howmuch" jdbcType="VARCHAR" />
     <result column="Remark" property="remark" jdbcType="VARCHAR" />
     <result column="State" property="state" jdbcType="INTEGER" />
-    <result column="Approver" property="approver" jdbcType="VARCHAR" />
+    <result column="Approver1" property="approver1" jdbcType="VARCHAR" />
+    <result column="Approver2" property="approver2" jdbcType="VARCHAR" />
+    <result column="SubmitDate" property="submitdate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ProjectReplyId, Name, Overview, UserId, Performer, HowMuch, Remark, State, Approver
+    ProjectReplyId, Name, Overview, UserId, Performer, HowMuch, Remark, State, Approver1, 
+    Approver2, SubmitDate
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from projectreply
-    where ProjectReplyId = #{projectreplyid,jdbcType=INTEGER}
+    where ProjectReplyId = #{projectreplyid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from projectreply
-    where ProjectReplyId = #{projectreplyid,jdbcType=INTEGER}
+    where ProjectReplyId = #{projectreplyid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.shuren.pojo.ProjectReply" >
     insert into projectreply (ProjectReplyId, Name, Overview, 
       UserId, Performer, HowMuch, 
-      Remark, State, Approver
-      )
-    values (#{projectreplyid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{overview,jdbcType=VARCHAR}, 
+      Remark, State, Approver1, 
+      Approver2, SubmitDate)
+    values (#{projectreplyid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{overview,jdbcType=VARCHAR}, 
       #{userid,jdbcType=INTEGER}, #{performer,jdbcType=VARCHAR}, #{howmuch,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{approver,jdbcType=VARCHAR}
-      )
+      #{remark,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{approver1,jdbcType=VARCHAR}, 
+      #{approver2,jdbcType=VARCHAR}, #{submitdate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.shuren.pojo.ProjectReply" >
     insert into projectreply
@@ -62,13 +65,19 @@
       <if test="state != null" >
         State,
       </if>
-      <if test="approver != null" >
-        Approver,
+      <if test="approver1 != null" >
+        Approver1,
+      </if>
+      <if test="approver2 != null" >
+        Approver2,
+      </if>
+      <if test="submitdate != null" >
+        SubmitDate,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="projectreplyid != null" >
-        #{projectreplyid,jdbcType=INTEGER},
+        #{projectreplyid,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -91,8 +100,14 @@
       <if test="state != null" >
         #{state,jdbcType=INTEGER},
       </if>
-      <if test="approver != null" >
-        #{approver,jdbcType=VARCHAR},
+      <if test="approver1 != null" >
+        #{approver1,jdbcType=VARCHAR},
+      </if>
+      <if test="approver2 != null" >
+        #{approver2,jdbcType=VARCHAR},
+      </if>
+      <if test="submitdate != null" >
+        #{submitdate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -120,11 +135,17 @@
       <if test="state != null" >
         State = #{state,jdbcType=INTEGER},
       </if>
-      <if test="approver != null" >
-        Approver = #{approver,jdbcType=VARCHAR},
+      <if test="approver1 != null" >
+        Approver1 = #{approver1,jdbcType=VARCHAR},
+      </if>
+      <if test="approver2 != null" >
+        Approver2 = #{approver2,jdbcType=VARCHAR},
+      </if>
+      <if test="submitdate != null" >
+        SubmitDate = #{submitdate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where ProjectReplyId = #{projectreplyid,jdbcType=INTEGER}
+    where ProjectReplyId = #{projectreplyid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.ProjectReply" >
     update projectreply
@@ -135,11 +156,13 @@
       HowMuch = #{howmuch,jdbcType=VARCHAR},
       Remark = #{remark,jdbcType=VARCHAR},
       State = #{state,jdbcType=INTEGER},
-      Approver = #{approver,jdbcType=VARCHAR}
-    where ProjectReplyId = #{projectreplyid,jdbcType=INTEGER}
+      Approver1 = #{approver1,jdbcType=VARCHAR},
+      Approver2 = #{approver2,jdbcType=VARCHAR},
+      SubmitDate = #{submitdate,jdbcType=TIMESTAMP}
+    where ProjectReplyId = #{projectreplyid,jdbcType=VARCHAR}
   </update>
   
-   <select id="selectAll" resultMap="BaseResultMap" >
+  <select id="selectAll" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
     from projectreply
@@ -150,33 +173,113 @@
     <include refid="Base_Column_List" />
     from projectreply 
     <where>
-    <if test="projectreplyid != null" >
-        and ProjectReplyId=#{projectreplyid}
-      </if>
-      <if test="name != null" >
-        and Name like "%"#{name}"%"
+     <if test="name != null" >
+        and Name like "%"#{name,jdbcType=VARCHAR}"%"
       </if>
       <if test="overview != null" >
-        and Overview=#{overview}
+        and Overview = #{overview,jdbcType=VARCHAR}
       </if>
       <if test="userid != null" >
-        and UserId=#{userid}
+        and UserId = #{userid,jdbcType=INTEGER}
       </if>
       <if test="performer != null" >
-        and Performer=#{performer}
+        and Performer = #{performer,jdbcType=VARCHAR}
       </if>
       <if test="howmuch != null" >
-        and HowMuch=#{howmuch}
+        and HowMuch = #{howmuch,jdbcType=VARCHAR}
       </if>
       <if test="remark != null" >
-        and Remark=#{remark}
+        and Remark = #{remark,jdbcType=VARCHAR}
       </if>
       <if test="state != null" >
-        and State=#{state}
+        and State = #{state,jdbcType=INTEGER}
       </if>
-       <if test="approver != null" >
-        and Approver=#{approver}
+      <if test="approver1 != null" >
+        and Approver1 = #{approver1,jdbcType=VARCHAR}
+      </if>
+      <if test="approver2 != null" >
+        and Approver2 = #{approver2,jdbcType=VARCHAR}
+      </if>
+      <if test="submitdate != null" >
+        and SubmitDate = #{submitdate,jdbcType=TIMESTAMP}
       </if>
     </where>
+     Order By SubmitDate Desc
+  </select>
+  
+  <select id="CountByIf" parameterType="ProjectReply" resultType="Integer" >
+    select count(*)
+    from projectreply 
+    <where>
+     <if test="name != null" >
+        and Name like "%"#{name,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="overview != null" >
+        and Overview = #{overview,jdbcType=VARCHAR}
+      </if>
+      <if test="userid != null" >
+        and UserId = #{userid,jdbcType=INTEGER}
+      </if>
+      <if test="performer != null" >
+        and Performer = #{performer,jdbcType=VARCHAR}
+      </if>
+      <if test="howmuch != null" >
+        and HowMuch = #{howmuch,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null" >
+        and Remark = #{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="state != null" >
+        and State = #{state,jdbcType=INTEGER}
+      </if>
+      <if test="approver1 != null" >
+        and Approver1 = #{approver1,jdbcType=VARCHAR}
+      </if>
+      <if test="approver2 != null" >
+        and Approver2 = #{approver2,jdbcType=VARCHAR}
+      </if>
+      <if test="submitdate != null" >
+        and SubmitDate = #{submitdate,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+     Order By SubmitDate Desc
+  </select>
+  
+  <select id="SumByIf" parameterType="ProjectReply" resultType="Float" >
+    select sum(howmuch)
+    from projectreply 
+    <where>
+     <if test="name != null" >
+        and Name like "%"#{name,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="overview != null" >
+        and Overview = #{overview,jdbcType=VARCHAR}
+      </if>
+      <if test="userid != null" >
+        and UserId = #{userid,jdbcType=INTEGER}
+      </if>
+      <if test="performer != null" >
+        and Performer = #{performer,jdbcType=VARCHAR}
+      </if>
+      <if test="howmuch != null" >
+        and HowMuch = #{howmuch,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null" >
+        and Remark = #{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="state != null" >
+        and State = #{state,jdbcType=INTEGER}
+      </if>
+      <if test="approver1 != null" >
+        and Approver1 = #{approver1,jdbcType=VARCHAR}
+      </if>
+      <if test="approver2 != null" >
+        and Approver2 = #{approver2,jdbcType=VARCHAR}
+      </if>
+      <if test="submitdate != null" >
+        and SubmitDate = #{submitdate,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+     Order By SubmitDate Desc
   </select>
 </mapper>

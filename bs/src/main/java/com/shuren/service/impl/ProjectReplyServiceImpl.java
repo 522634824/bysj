@@ -40,4 +40,10 @@ public class ProjectReplyServiceImpl implements ProjectReplyService{
 		mapper.updateByPrimaryKeySelective(projectreply);
 	}
 
+	@Override
+	public ProjectReply selectByprojectreplyid(String projectreplyid) {
+		// TODO Auto-generated method stub
+		return mapper.selectByPrimaryKey(projectreplyid);
+	}
+
 }

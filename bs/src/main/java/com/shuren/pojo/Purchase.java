@@ -1,19 +1,19 @@
 package com.shuren.pojo;
 
-import java.math.BigDecimal;
-
 public class Purchase {
     private Integer purchaseid;
 
-    private Integer purchasenumber;
+    private String purchasenumber;
 
     private Integer equipmentid;
 
     private Integer num;
 
-    private BigDecimal price;
+    private Float price;
 
     private String userid;
+
+    private Integer supplierid;
 
     public Integer getPurchaseid() {
         return purchaseid;
@@ -23,12 +23,12 @@ public class Purchase {
         this.purchaseid = purchaseid;
     }
 
-    public Integer getPurchasenumber() {
+    public String getPurchasenumber() {
         return purchasenumber;
     }
 
-    public void setPurchasenumber(Integer purchasenumber) {
-        this.purchasenumber = purchasenumber;
+    public void setPurchasenumber(String purchasenumber) {
+        this.purchasenumber = purchasenumber == null ? null : purchasenumber.trim();
     }
 
     public Integer getEquipmentid() {
@@ -47,11 +47,11 @@ public class Purchase {
         this.num = num;
     }
 
-    public BigDecimal getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -62,4 +62,20 @@ public class Purchase {
     public void setUserid(String userid) {
         this.userid = userid == null ? null : userid.trim();
     }
+
+    public Integer getSupplierid() {
+        return supplierid;
+    }
+
+    public void setSupplierid(Integer supplierid) {
+        this.supplierid = supplierid;
+    }
+
+	@Override
+	public String toString() {
+		return "Purchase [purchaseid=" + purchaseid + ", purchasenumber=" + purchasenumber + ", equipmentid="
+				+ equipmentid + ", num=" + num + ", price=" + price + ", userid=" + userid + ", supplierid="
+				+ supplierid + "]";
+	}
+    
 }

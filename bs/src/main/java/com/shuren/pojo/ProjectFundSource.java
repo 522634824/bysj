@@ -9,6 +9,8 @@ public class ProjectFundSource {
 
     private String remark;
 
+    private String projectid;
+
     public Integer getProjectfundsourceid() {
         return projectfundsourceid;
     }
@@ -39,5 +41,13 @@ public class ProjectFundSource {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public String getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(String projectid) {
+        this.projectid = projectid == null ? null : projectid.trim();
     }
 }

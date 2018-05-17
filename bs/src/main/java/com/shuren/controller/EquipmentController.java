@@ -15,8 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.shuren.pojo.Equipment;
 import com.shuren.pojo.EquipmentClass;
 import com.shuren.pojo.EquipmentRoot;
-import com.shuren.pojo.Supplier;
-import com.shuren.pojo.User;
+import com.shuren.pojo.Equipmentvo;
 import com.shuren.service.EquipmentService;
 import com.shuren.util.ResponseUtil;
 
@@ -62,7 +61,7 @@ public class EquipmentController {
 	@RequestMapping("allEquipment")
 	@ResponseBody
 	public String supplierList() {	
-		List<Equipment> list=service.selectAllEquipment();
+		List<Equipmentvo> list=service.selectAllEquipment();
 		JSONObject result=new JSONObject();
 		result.put("rows", list);
 		result.put("total", list.size());

@@ -18,6 +18,10 @@
   	<filter-name>encoding</filter-name>
   	<url-pattern>*.action</url-pattern>
   </filter-mapping>
+  
+  <listener>
+    <listener-class>com.shuren.util.MySessionListener</listener-class>
+</listener>
    <!-- 添加Spring监听器  默认加载位置 WEB-INF-->
   <listener>
   	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

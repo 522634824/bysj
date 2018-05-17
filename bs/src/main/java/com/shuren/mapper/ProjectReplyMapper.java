@@ -5,19 +5,20 @@ import java.util.List;
 import com.shuren.pojo.ProjectReply;
 
 public interface ProjectReplyMapper {
-    int deleteByPrimaryKey(Integer projectreplyid);
+    int deleteByPrimaryKey(String projectreplyid);
 
     int insert(ProjectReply record);
 
     int insertSelective(ProjectReply record);
 
-    ProjectReply selectByPrimaryKey(Integer projectreplyid);
+    ProjectReply selectByPrimaryKey(String projectreplyid);
 
     int updateByPrimaryKeySelective(ProjectReply record);
 
     int updateByPrimaryKey(ProjectReply record);
-    
+
 	List<ProjectReply> selectAll();
-	
+
 	List<ProjectReply> selectByIf(ProjectReply projectreply);
+	
 }

@@ -25,4 +25,6 @@ public interface UserMapper {
 
 	List<User> selectLikeUsername(String username);
 	
+	List<User> selectByIf(User user);
+	
 }

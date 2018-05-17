@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shuren.mapper.TeamMapper" >
+  <resultMap id="BaseResultMap" type="com.shuren.pojo.Team" >
+    <id column="TeamId" property="teamid" jdbcType="INTEGER" />
+    <result column="ProjectId" property="projectid" jdbcType="VARCHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TeamId, ProjectId, Name, Tel, Remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from team
+    where TeamId = #{teamid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from team
+    where TeamId = #{teamid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shuren.pojo.Team" >
+    insert into team (TeamId, ProjectId, Name, 
+      Tel, Remark)
+    values (#{teamid,jdbcType=INTEGER}, #{projectid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shuren.pojo.Team" >
+    insert into team
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teamid != null" >
+        TeamId,
+      </if>
+      <if test="projectid != null" >
+        ProjectId,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="tel != null" >
+        Tel,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teamid != null" >
+        #{teamid,jdbcType=INTEGER},
+      </if>
+      <if test="projectid != null" >
+        #{projectid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shuren.pojo.Team" >
+    update team
+    <set >
+      <if test="projectid != null" >
+        ProjectId = #{projectid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        Tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TeamId = #{teamid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.Team" >
+    update team
+    set ProjectId = #{projectid,jdbcType=VARCHAR},
+      Name = #{name,jdbcType=VARCHAR},
+      Tel = #{tel,jdbcType=VARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR}
+    where TeamId = #{teamid,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="SelectTeamByIf" resultMap="BaseResultMap" parameterType="Team" >
+    select 
+    <include refid="Base_Column_List" />
+    from team
+    <where>
+     <if test="projectid != null" >
+        and ProjectId = #{projectid,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null" >
+        and Name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="tel != null" >
+        and Tel = #{tel,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null" >
+         and Remark = #{remark,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

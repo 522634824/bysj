@@ -20,6 +20,14 @@
 				href="javascript:deleteSupplierStaff()" class="easyui-linkbutton"
 				iconCls="icon-remove" plain="true">删除</a>
 		</div>
+		<div>
+			&nbsp;工号：&nbsp;<input id="numSearch" class="easyui-textbox"
+				size="20"  onkeydown="if(event.keyCode==13) search()" />&nbsp;
+			&nbsp;姓名：&nbsp;<input id="nameSearch" class="easyui-textbox"
+				size="20"  onkeydown="if(event.keyCode==13) search()" />&nbsp;
+			&nbsp;<a href="javascript:search()" class="easyui-linkbutton"
+				iconCls="icon-search" plain="true">搜索</a>
+		</div>
 	</div>
 	
 	<div id="dlg" class="easyui-dialog"
@@ -175,8 +183,13 @@
 			onSubmit : function() {
 				return $(this).form("validate");
 			},
-			success : function(result) {
-				$.messager.alert("系统提示", "保存成功");
+			success : function(data) {
+				var result = eval('(' + data + ')');
+				if(result.success){
+					$.messager.alert("系统提示", "保存成功！");
+				}else{
+					$.messager.alert("系统提示", "保存失败！");
+				}
 				resetstaffValue();
 				$("#dlg").dialog("close");
 				$("#dg").datagrid("reload");
@@ -194,7 +207,29 @@
 		$("#remark").val("");
 	}
 
+	function search() {
+		var findnum=$("#numSearch").val();
+		var findname=$("#nameSearch").val();
+		if (isEmpty(findnum)) {
+			$("#dg").datagrid('load', {
+				"name" : $("#nameSearch").val(),
+				
+			});
+			return;
+		}
+		if (isEmpty(findname)) {
+			$("#dg").datagrid('load', {
+				"num" : $("#numSearch").val(),
+			});
+			return;
+		}
+		$("#dg").datagrid('load', {
+			"name" : findname,
+			"num" : findnum,
+		});
+		
 
+	}
 		
 	</script>
 </body>

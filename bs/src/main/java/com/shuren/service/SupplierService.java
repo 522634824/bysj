@@ -3,6 +3,7 @@ package com.shuren.service;
 import java.util.List;
 
 import com.shuren.pojo.Supplier;
+import com.shuren.pojo.SupplierBrand;
 import com.shuren.pojo.SupplierStaff;
 
 public interface SupplierService {
@@ -14,4 +15,6 @@ public interface SupplierService {
 	public abstract int updateSupplier(Supplier supplier);
 	
 	public abstract List<Supplier> selectAllSupplier();
+
+	public abstract List<Supplier> selectByBrand(SupplierBrand brand);
 }

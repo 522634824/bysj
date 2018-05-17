@@ -3,6 +3,7 @@ package com.shuren.mapper;
 import java.util.List;
 
 import com.shuren.pojo.Supplier;
+import com.shuren.pojo.SupplierBrand;
 
 public interface SupplierMapper {
     int deleteByPrimaryKey(Integer supplierid);
@@ -18,4 +19,6 @@ public interface SupplierMapper {
     int updateByPrimaryKey(Supplier record);
 
 	List<Supplier> selectAllSupplier();
+
+	List<Supplier> selectByBrand(SupplierBrand brand);
 }

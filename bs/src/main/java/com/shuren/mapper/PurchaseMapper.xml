@@ -1,104 +1,206 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shuren.mapper.PurchaseMapper" >
-  <resultMap id="BaseResultMap" type="com.shuren.pojo.Purchase" >
-    <id column="PurchaseId" property="purchaseid" jdbcType="INTEGER" />
-    <result column="PurchaseNumber" property="purchasenumber" jdbcType="INTEGER" />
-    <result column="EquipmentId" property="equipmentid" jdbcType="INTEGER" />
-    <result column="Num" property="num" jdbcType="INTEGER" />
-    <result column="Price" property="price" jdbcType="DECIMAL" />
-    <result column="UserId" property="userid" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    PurchaseId, PurchaseNumber, EquipmentId, Num, Price, UserId
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from purchase
-    where PurchaseId = #{purchaseid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from purchase
-    where PurchaseId = #{purchaseid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.shuren.pojo.Purchase" >
-    insert into purchase (PurchaseId, PurchaseNumber, EquipmentId, 
-      Num, Price, UserId)
-    values (#{purchaseid,jdbcType=INTEGER}, #{purchasenumber,jdbcType=INTEGER}, #{equipmentid,jdbcType=INTEGER}, 
-      #{num,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{userid,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.shuren.pojo.Purchase" >
-    insert into purchase
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="purchaseid != null" >
-        PurchaseId,
-      </if>
-      <if test="purchasenumber != null" >
-        PurchaseNumber,
-      </if>
-      <if test="equipmentid != null" >
-        EquipmentId,
-      </if>
-      <if test="num != null" >
-        Num,
-      </if>
-      <if test="price != null" >
-        Price,
-      </if>
-      <if test="userid != null" >
-        UserId,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="purchaseid != null" >
-        #{purchaseid,jdbcType=INTEGER},
-      </if>
-      <if test="purchasenumber != null" >
-        #{purchasenumber,jdbcType=INTEGER},
-      </if>
-      <if test="equipmentid != null" >
-        #{equipmentid,jdbcType=INTEGER},
-      </if>
-      <if test="num != null" >
-        #{num,jdbcType=INTEGER},
-      </if>
-      <if test="price != null" >
-        #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shuren.pojo.Purchase" >
-    update purchase
-    <set >
-      <if test="purchasenumber != null" >
-        PurchaseNumber = #{purchasenumber,jdbcType=INTEGER},
-      </if>
-      <if test="equipmentid != null" >
-        EquipmentId = #{equipmentid,jdbcType=INTEGER},
-      </if>
-      <if test="num != null" >
-        Num = #{num,jdbcType=INTEGER},
-      </if>
-      <if test="price != null" >
-        Price = #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="userid != null" >
-        UserId = #{userid,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where PurchaseId = #{purchaseid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.Purchase" >
-    update purchase
-    set PurchaseNumber = #{purchasenumber,jdbcType=INTEGER},
-      EquipmentId = #{equipmentid,jdbcType=INTEGER},
-      Num = #{num,jdbcType=INTEGER},
-      Price = #{price,jdbcType=DECIMAL},
-      UserId = #{userid,jdbcType=VARCHAR}
-    where PurchaseId = #{purchaseid,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.shuren.mapper.PurchaseMapper">
+	<resultMap id="BaseResultMap" type="com.shuren.pojo.Purchase">
+		<id column="PurchaseId" property="purchaseid" jdbcType="INTEGER" />
+		<result column="PurchaseNumber" property="purchasenumber"
+			jdbcType="VARCHAR" />
+		<result column="EquipmentId" property="equipmentid"
+			jdbcType="INTEGER" />
+		<result column="Num" property="num" jdbcType="INTEGER" />
+		<result column="Price" property="price" jdbcType="REAL" />
+		<result column="UserId" property="userid" jdbcType="VARCHAR" />
+		<result column="SupplierId" property="supplierid"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+
+	<resultMap id="voMap" type="com.shuren.pojo.Purchasevo">
+		<id column="PurchaseId" property="purchaseid" jdbcType="INTEGER" />
+		<result column="PurchaseNumber" property="purchasenumber"
+			jdbcType="VARCHAR" />
+		<result column="EquipmentId" property="equipmentid"
+			jdbcType="INTEGER" />
+		<result column="Num" property="num" jdbcType="INTEGER" />
+		<result column="Price" property="price" jdbcType="REAL" />
+		<result column="UserId" property="userid" jdbcType="VARCHAR" />
+		<result column="SupplierId" property="supplierid"
+			jdbcType="INTEGER" />
+		<association property="supplier" javaType="Supplier">
+			<!-- id:声明主键，表示user_id是关联查询对象的唯一标识 -->
+			<id property="supplierid" column="SupplierId" />
+			<result property="suppliertypeid" column="SupplierTypeId" />
+			<result property="name" column="Name" />
+			<result property="address" column="Address" />
+			<result property="tel" column="Tel" />
+			<result property="managementcontent"
+				column="ManagementContent" />
+		</association>
+		<association property="equipment" javaType="Equipment">
+			<!-- id:声明主键，表示user_id是关联查询对象的唯一标识 -->
+			<id property="equipmentid" column="EquipmentId" />
+			<result property="equipmentclassid" column="EquipmentClassId" />
+			<result property="equipmentclassid" column="EquipmentClassId" />
+			<result property="model" column="Model" />
+			<result property="name" column="Name" />
+			<result property="remark" column="Remark" />
+		</association>
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		PurchaseId, PurchaseNumber, EquipmentId, Num, Price,
+		UserId, SupplierId
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from purchase
+		where PurchaseId = #{purchaseid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from purchase
+		where PurchaseId =
+		#{purchaseid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.shuren.pojo.Purchase">
+		insert into purchase
+		(PurchaseId, PurchaseNumber, EquipmentId,
+		Num, Price, UserId,
+		SupplierId
+		)
+		values (#{purchaseid,jdbcType=INTEGER},
+		#{purchasenumber,jdbcType=VARCHAR},
+		#{equipmentid,jdbcType=INTEGER},
+		#{num,jdbcType=INTEGER}, #{price,jdbcType=REAL},
+		#{userid,jdbcType=VARCHAR},
+		#{supplierid,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.shuren.pojo.Purchase">
+		insert into purchase
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="purchaseid != null">
+				PurchaseId,
+			</if>
+			<if test="purchasenumber != null">
+				PurchaseNumber,
+			</if>
+			<if test="equipmentid != null">
+				EquipmentId,
+			</if>
+			<if test="num != null">
+				Num,
+			</if>
+			<if test="price != null">
+				Price,
+			</if>
+			<if test="userid != null">
+				UserId,
+			</if>
+			<if test="supplierid != null">
+				SupplierId,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="purchaseid != null">
+				#{purchaseid,jdbcType=INTEGER},
+			</if>
+			<if test="purchasenumber != null">
+				#{purchasenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="equipmentid != null">
+				#{equipmentid,jdbcType=INTEGER},
+			</if>
+			<if test="num != null">
+				#{num,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=REAL},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="supplierid != null">
+				#{supplierid,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.shuren.pojo.Purchase">
+		update purchase
+		<set>
+			<if test="purchasenumber != null">
+				PurchaseNumber = #{purchasenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="equipmentid != null">
+				EquipmentId = #{equipmentid,jdbcType=INTEGER},
+			</if>
+			<if test="num != null">
+				Num = #{num,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				Price = #{price,jdbcType=REAL},
+			</if>
+			<if test="userid != null">
+				UserId = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="supplierid != null">
+				SupplierId = #{supplierid,jdbcType=INTEGER},
+			</if>
+		</set>
+		where PurchaseId = #{purchaseid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.shuren.pojo.Purchase">
+		update purchase
+		set PurchaseNumber =
+		#{purchasenumber,jdbcType=VARCHAR},
+		EquipmentId =
+		#{equipmentid,jdbcType=INTEGER},
+		Num = #{num,jdbcType=INTEGER},
+		Price =
+		#{price,jdbcType=REAL},
+		UserId = #{userid,jdbcType=VARCHAR},
+		SupplierId
+		= #{supplierid,jdbcType=INTEGER}
+		where PurchaseId =
+		#{purchaseid,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectByIf" resultMap="voMap"
+		parameterType="Purchase">
+		select * from purchase p,equipment e,supplier s
+		<where>
+			p.EquipmentId=e.EquipmentId and p.SupplierId=s.SupplierId
+			<if test="purchasenumber != null">
+				and PurchaseNumber = #{purchasenumber,jdbcType=VARCHAR}
+			</if>
+			<if test="equipmentid != null">
+				and EquipmentId = #{equipmentid,jdbcType=INTEGER}
+			</if>
+			<if test="num != null">
+				and Num = #{num,jdbcType=INTEGER}
+			</if>
+			<if test="price != null">
+				and Price = #{price,jdbcType=REAL}
+			</if>
+			<if test="userid != null">
+				and UserId = #{userid,jdbcType=VARCHAR}
+			</if>
+			<if test="supplierid != null">
+				and SupplierId = #{supplierid,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectAll" resultMap="voMap">
+		select * from purchase p,equipment e,supplier s
+		<where>p.EquipmentId=e.EquipmentId and p.SupplierId=s.SupplierId
+		</where>
+	</select>
+
 </mapper>

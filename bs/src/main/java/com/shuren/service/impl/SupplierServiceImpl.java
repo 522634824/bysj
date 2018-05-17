@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.shuren.mapper.SupplierMapper;
 import com.shuren.mapper.SupplierStaffMapper;
 import com.shuren.pojo.Supplier;
+import com.shuren.pojo.SupplierBrand;
 import com.shuren.pojo.SupplierStaff;
 import com.shuren.service.SupplierService;
 
@@ -43,6 +44,12 @@ public class SupplierServiceImpl implements SupplierService{
 	public List<Supplier> selectAllSupplier() {
 		// TODO Auto-generated method stub
 		return mapper.selectAllSupplier();
+	}
+
+	@Override
+	public List<Supplier> selectByBrand(SupplierBrand brand) {
+		// TODO Auto-generated method stub
+		return mapper.selectByBrand(brand);
 	}
 
 }

@@ -1,7 +1,9 @@
 package com.shuren.pojo;
 
+import java.util.Date;
+
 public class ProjectReply {
-    private Integer projectreplyid;
+    private String projectreplyid;
 
     private String name;
 
@@ -17,14 +19,18 @@ public class ProjectReply {
 
     private Integer state;
 
-    private String approver;
+    private String approver1;
 
-    public Integer getProjectreplyid() {
+    private String approver2;
+
+    private Date submitdate;
+
+    public String getProjectreplyid() {
         return projectreplyid;
     }
 
-    public void setProjectreplyid(Integer projectreplyid) {
-        this.projectreplyid = projectreplyid;
+    public void setProjectreplyid(String projectreplyid) {
+        this.projectreplyid = projectreplyid == null ? null : projectreplyid.trim();
     }
 
     public String getName() {
@@ -83,11 +89,38 @@ public class ProjectReply {
         this.state = state;
     }
 
-    public String getApprover() {
-        return approver;
+    public String getApprover1() {
+        return approver1;
     }
 
-    public void setApprover(String approver) {
-        this.approver = approver == null ? null : approver.trim();
+    public void setApprover1(String approver1) {
+        this.approver1 = approver1 == null ? null : approver1.trim();
     }
+
+    public String getApprover2() {
+        return approver2;
+    }
+
+    public void setApprover2(String approver2) {
+        this.approver2 = approver2 == null ? null : approver2.trim();
+    }
+
+   
+    public Date getSubmitdate() {
+        return submitdate;
+    }
+
+    public void setSubmitdate(Date submitdate) {
+        this.submitdate = submitdate;
+    }
+
+	@Override
+	public String toString() {
+		return "ProjectReply [projectreplyid=" + projectreplyid + ", name=" + name + ", overview=" + overview
+				+ ", userid=" + userid + ", performer=" + performer + ", howmuch=" + howmuch + ", remark=" + remark
+				+ ", state=" + state + ", approver1=" + approver1 + ", approver2=" + approver2 + ", submitdate="
+				+ submitdate + "]";
+	}
+    
+    
 }

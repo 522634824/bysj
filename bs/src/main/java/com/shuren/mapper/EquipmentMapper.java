@@ -3,6 +3,7 @@ package com.shuren.mapper;
 import java.util.List;
 
 import com.shuren.pojo.Equipment;
+import com.shuren.pojo.Equipmentvo;
 
 public interface EquipmentMapper {
     int deleteByPrimaryKey(Integer equipmentid);
@@ -19,5 +20,5 @@ public interface EquipmentMapper {
 
 	List<Equipment> selectByClassId(int equipmentclassid);
 
-	List<Equipment> selectAllEquipment();
+	List<Equipmentvo> selectAllEquipment();
 }

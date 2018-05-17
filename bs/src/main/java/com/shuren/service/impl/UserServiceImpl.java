@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.stereotype.Service;
 
 import com.shuren.mapper.UserMapper;
@@ -18,7 +19,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int insertUser(User user) {
 		// TODO Auto-generated method stub
-		usermapper.insert(user);
+		usermapper.insertSelective(user);
 		return 1;
 	}
 
@@ -67,12 +68,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int updatePassword(User user) {
+	public List<User> selectByIf(User user) {
 		// TODO Auto-generated method stub
-		usermapper.updateByPrimaryKeySelective(user);
-		return 1;
+		return usermapper.selectByIf(user);
 	}
-
-
 
 }

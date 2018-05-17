@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shuren.mapper.ScheduleMapper" >
+  <resultMap id="BaseResultMap" type="com.shuren.pojo.Schedule" >
+    <id column="ScheduleId" property="scheduleid" jdbcType="INTEGER" />
+    <result column="ProjectId" property="projectid" jdbcType="VARCHAR" />
+    <result column="Overview" property="overview" jdbcType="VARCHAR" />
+    <result column="PlanDate" property="plandate" jdbcType="TIMESTAMP" />
+    <result column="RealDate" property="realdate" jdbcType="TIMESTAMP" />
+    <result column="State" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ScheduleId, ProjectId, Overview, PlanDate, RealDate, State
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from schedule
+    where ScheduleId = #{scheduleid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from schedule
+    where ScheduleId = #{scheduleid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shuren.pojo.Schedule" >
+    insert into schedule (ScheduleId, ProjectId, Overview, 
+      PlanDate, RealDate, State
+      )
+    values (#{scheduleid,jdbcType=INTEGER}, #{projectid,jdbcType=VARCHAR}, #{overview,jdbcType=VARCHAR}, 
+      #{plandate,jdbcType=TIMESTAMP}, #{realdate,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shuren.pojo.Schedule" >
+    insert into schedule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scheduleid != null" >
+        ScheduleId,
+      </if>
+      <if test="projectid != null" >
+        ProjectId,
+      </if>
+      <if test="overview != null" >
+        Overview,
+      </if>
+      <if test="plandate != null" >
+        PlanDate,
+      </if>
+      <if test="realdate != null" >
+        RealDate,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scheduleid != null" >
+        #{scheduleid,jdbcType=INTEGER},
+      </if>
+      <if test="projectid != null" >
+        #{projectid,jdbcType=VARCHAR},
+      </if>
+      <if test="overview != null" >
+        #{overview,jdbcType=VARCHAR},
+      </if>
+      <if test="plandate != null" >
+        #{plandate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realdate != null" >
+        #{realdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shuren.pojo.Schedule" >
+    update schedule
+    <set >
+      <if test="projectid != null" >
+        ProjectId = #{projectid,jdbcType=VARCHAR},
+      </if>
+      <if test="overview != null" >
+        Overview = #{overview,jdbcType=VARCHAR},
+      </if>
+      <if test="plandate != null" >
+        PlanDate = #{plandate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realdate != null" >
+        RealDate = #{realdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ScheduleId = #{scheduleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shuren.pojo.Schedule" >
+    update schedule
+    set ProjectId = #{projectid,jdbcType=VARCHAR},
+      Overview = #{overview,jdbcType=VARCHAR},
+      PlanDate = #{plandate,jdbcType=TIMESTAMP},
+      RealDate = #{realdate,jdbcType=TIMESTAMP},
+      State = #{state,jdbcType=VARCHAR}
+    where ScheduleId = #{scheduleid,jdbcType=INTEGER}
+  </update>
+  
+   <select id="selectScheduleByIf" resultMap="BaseResultMap" parameterType="Schedule" >
+    select 
+    <include refid="Base_Column_List" />
+    from schedule
+    <where>
+     <if test="projectid != null" >
+       and ProjectId = #{projectid,jdbcType=INTEGER}
+      </if>
+      <if test="overview != null" >
+        and Overview = #{overview,jdbcType=VARCHAR}
+      </if>
+      <if test="plandate != null" >
+        and PlanDate = #{plandate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="realdate != null" >
+        and RealDate = #{realdate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="state != null" >
+        and State = #{state,jdbcType=VARCHAR}
+      </if>
+    
+    </where>
+  </select>
+</mapper>
